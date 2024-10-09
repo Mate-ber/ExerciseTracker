@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/motyka.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/vs.css">
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<section data-background-color="#523996">
+			<i>Week 1 | Lesson 2</i>
+			<h1>Java basics</h1>
+			<em>Objects, Classes, Functions and Methods, Access modifiers</em>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Types (continued)</h2>
+			</section>
+			<section>
+				<h3>Types</h3>
+				<p>
+					As already mentioned in the previous lesson, there are two groups of data types in Java:
+				</p>
+				<ul>
+					<li>primitive types</li>
+					<li>reference types</li>
+				</ul>
+				<p>
+					The reference types are any types that have a class backing them, including String and Arrays.
+				</p>
+				<hr />
+				<p>
+					When you define a variable in Java, you must tell the compile what type it is.<br />
+					However, since <strong>Java 10</strong>, you can use the <code class="inline">var</code> keyword
+					and type will be automatically inferred from the surrounding context (if possible).
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						// explicit typing
+						int number1 = 10;
+						String str1 = "A";
+
+						// inferred typing using var
+						var str2 = "A";
+						var number2 = 10;
+					</code>
+				</pre>
+				<p>
+					This may be convenient, but keep in mind that explicit typing is still useful when you want to
+					clearly communicate (to other developers) what type of data is expected.
+					<br />
+					<br />
+					Therefore, it is mostly useful for local (inner) variables within classes etc ...
+				</p>
+			</section>
+		</section>
+
+		<section>
+			<section data-background-color="#523996">
+				<h2>Objects and Classes</h2>
+			</section>
+			<section>
+				<h3>Objects and Classes</h3>
+				<p style="text-align: left;">
+					We have already seen and worked with Java objects and classes.
+					Let's explain what they are and how they work in more detail.
+				</p>
+				<blockquote>
+					What is an object?<br />
+					What is a class?
+				</blockquote>
+				<div class="fragment fade-in">
+					<strong>Object</strong> = is a data structure in memory<br />
+					<strong>Class</strong> = a template for how to create an object
+				</div>
+			</section>
+			<section>
+				<h3>Class Definition</h3>
+				<ul>
+					<li>
+						<strong>Name</strong>
+						<div>The name should begin with an initial letter (capitalized by convention).</div>
+					</li>
+					<li>
+						<strong>Modifiers</strong>
+						<div>Optional. Special keywords that define class visibility and other aspects.</div>
+					</li>
+					<li>
+						<strong>Superclass</strong>
+						<div>Optional. Parent class being extended following the <code><strong>extends</strong></code> keyword.</div>
+					</li>
+					<li>
+						<strong>Interfaces</strong>
+						<div>Optional. Comma-separated list of interfaces the class extends following the <code><strong>implements</strong></code> keyword.</div>
+					</li>
+					<li>
+						<strong>Body</strong>
+						<div>
+							Enclosed between curly-braces, class body may contain:
+							<ul>
+								<li>
+									<strong>Fields</strong> - variables that hold state of the class and its objects
+								</li>
+								<li>
+									<strong>Methods</strong> - contain the executable code
+								</li>
+								<li>
+									<strong>Constructors</strong> - special methods used to initialize the state of an object
+								</li>
+								<li>
+									<strong>Initializer Blocks</strong> - unnamed code blocks used for initializing shared variables and executing a code that needs to run every time an instance of the class is created
+								</li>
+								<li>
+									<strong>Inner Classes and Interfaces</strong> - class or interface definitions nested within the outer class body
+								</li>
+								<li>
+									<strong>Enumerations</strong> - special classes that have fields which consist only of a fixed set of constants
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h4>Class Definition</h4>
+				<div>
+					Minimal class definition ...
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							class UniversityCourse {
+								// not very useful class
+							}
+						</code>
+					</pre>
+				</div>
+				<div>
+					More realistic class definition ...
+					<pre>UniversityCourseExample.java
+						<code data-trim data-noescape data-line-numbers="|1,24|3-5|7-12|14-18|19-22|" class="hljs java">
+							public class UniversityCourse { // access modifier, class keyword, class name
+
+								// class fields
+								private String subject; // access modifier, data type, variable name
+								private final LocalDate startDate;
+								private final int lengthDays;
+
+								// primary constructor - access modifier, LocalDate startDate, name, arguments
+								public UniversityCourse(String subject, LocalDate startDate, int lengthDays) {
+									// code that will be executed during class instantiation
+									this.subject = subject;
+									this.startDate = startDate;
+									this.lengthDays = lengthDays;
+								}
+
+								// method - access modifier, return type, name, no arguments
+								public String getSubject() {
+									return subject;
+								}
+
+								// method - access modifier, void return type, name, 1 argument
+								public void setSubject(String subject) {
+									this.subject = subject;
+								}
+
+							}
+						</code>
+					</pre>
+				</div>
+			</section>
+			<section>
+				<h3>Class Instantiation</h3>
+				<p>
+					You do not directly work with classes in Java, you work with objects that are created from classes - so called class instances.
+				</p>
+				<blockquote>
+					object == instance of a class
+				</blockquote>
+				<ul>
+					<li>The process that creates an object from class is called <strong>instantiation</strong></li>
+					<li>Instantiation is done by calling a special <strong>constructor</strong> method</li>
+					<li>Class may have <strong>one or more</strong> constructors</li>
+					<li>If constructor is not explicitly defined, then the class will <strong>default constructor with no arguments</strong></li>
+					<li>Instantiation can be used to set initial values for the object</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Class Constructors</h3>
+				<p>Class constructors can have zero, one, or many arguments. Class can also have multiple constructors.</p>
+				<div class="fragment fade-in">
+					Consider a very simple class ...
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							class UniversityCourse {
+
+								String subject = "Java";
+
+							}
+						</code>
+					</pre>
+					Class instantiation ...
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							UniversityCourse course = new UniversityCourse();
+						</code>
+					</pre>
+				</div>
+				<div class="fragment fade-in">
+					This would an equivalent class definition with explicitly defined constructor ...
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							class UniversityCourse {
+
+								String subject = "Java";
+
+								class UniversityCourse() {}
+
+							}
+						</code>
+					</pre>
+				</div>
+			</section>
+			<section>
+				<h4>Class Constructors</h4>
+				Example of class definition, class with 2 constructors ...
+				<pre>UniversityCourseExample.java
+					<code data-trim data-noescape data-line-numbers= "|7-13|16-20|" class="hljs java">
+						public class UniversityCourse {
+
+							private String subject; // access modifier, data type, variable name
+							private final LocalDate startDate;
+							private final int lengthDays;
+
+							// primary constructor - access modifier, LocalDate startDate, name, arguments
+							public UniversityCourse(String subject, LocalDate startDate, int lengthDays) {
+								// code that will be executed during class instantiation
+								this.subject = subject;
+								this.startDate = startDate;
+								this.lengthDays = lengthDays;
+							}
+
+							// secondary constructor
+							public UniversityCourse(String subject) {
+								this.subject = subject;
+								this.startDate = LocalDate.now();
+								this.lengthDays = 1;
+							}
+
+						}
+					</code>
+				</pre>
+				Class instantiation ...
+				<pre>UniversityCourseExample.java
+					<code data-trim data-noescape data-line-numbers= "|1|3|" class="hljs java">
+						UniversityCourse javaCourse = new UniversityCourse("Java", LocalDate.parse("2024-02-19"), 15);
+
+						UniversityCourse pythonCourse = new UniversityCourse("Python");
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<h3>The "this" reference</h3>
+				<p>
+					The <code><strong>this</strong></code> keyword references the current object instance.
+					<br />
+					It is sometimes useful, and sometimes even necessary to use the <code><strong>this</strong></code> reference to access correct instance fields/methods.
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers="|6|10|14-16|" class="hljs java">
+						class UniversityCourse {
+
+							private final String subject;
+
+							public UniversityCourse(String subject) {
+								this.subject = subject; // here you actually have two completely different variables
+							}
+
+							public String getSubject() {
+								return subject; // no need to use this, since the variable reference is non-ambiguous
+							}
+
+							public String getOutline() {
+								String subject = "Name: " + this.subject; // here we must specify this due to ambiguity
+								System.out.println(subject); // int real life, this could be a logging for debugging purposes
+								return subject;
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<h3>Class destruction</h3>
+				<p>
+					Java has no class destructor, because freeing up memory is entirely delegated to Java through
+					a process called <strong>garbage collection</strong>, which we will talk about in later in the course.
+				</p>
+				<p>
+					Some Java classes may have a special methods that should be called after we are done using
+					the class in order for it to be eligible for garbage collection. I will also mention these
+					later in the course.
+				</p>
+			</section>
+			<section>
+				<h3>Records</h3>
+				<p>
+					Record is a special kind of class introduced in Java 16. It is essentially a class that is used to store data.
+					It has limited functionality compared to regular class, but it is convenient for classes that are used to store data.
+				</p>
+				<p>
+					As a minimum, a record class must have a name and a list of fields.
+					It automatically has a default constructor, getters, equals, hashCode, and toString methods.
+				</p>
+				<pre>
+					UniversityCourseRecordExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						record UniversityCourseRecord(
+								String subject,
+								LocalDate startDate,
+								int lengthDays
+						) {}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h4>Records</h4>
+				<pre>
+					UniversityCourseRecordExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						record UniversityCourseRecord(
+								String subject,
+								LocalDate startDate,
+								int lengthDays
+						) {
+
+							// alternative (secondary) constructor
+							public UniversityCourseRecord(String subject) {
+								this(subject, LocalDate.now(), 1);
+							}
+
+						}
+					</code>
+				</pre>
+				<pre>
+					UniversityCourseRecordExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						// primary constructor call
+						UniversityCourseRecord javaCourse = new UniversityCourseRecord("Java", LocalDate.parse("2024-02-19"), 15);
+
+						// secondary constructor call
+						UniversityCourseRecord pythonCourse = new UniversityCourseRecord("Python");
+
+						/*
+						This will print:
+						 UniversityCourseRecord[subject=Java, startDate=2024-02-19, lengthDays=15]
+
+						 because the record class has a default toString method
+						 */
+						System.out.println(javaCourse);
+
+						System.out.println(javaCourse.subject());
+						System.out.println(javaCourse.startDate());
+						System.out.println(javaCourse.lengthDays());
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Inner classes</h3>
+				<p>Inner class (also called nested class), is a class defind within a body of another class.</p>
+
+				<pre>
+					Nested class:
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						class OuterClass {
+
+							String name = "A";
+
+							class InnerClass {
+								String name = "B";
+							}
+						}
+					</code>
+				</pre>
+				<pre>
+					Usage:
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class UniversityCourseExample {
+
+							public static void main(String[] args) {
+
+								OuterClass outerClass = new OuterClass();
+								System.out.println(outerClass.name); // prints A
+
+								OuterClass.InnerClass innerClass = outerClass.new InnerClass(); // creates instance of inner class
+								System.out.println(innerClass.name); // prints B
+
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h4>Use case for nested classes</h4>
+				<ul>
+					<li>
+						<strong>Logical Grouping</strong>
+						<div>
+							Nested classes can help us keep our code organized by having related code together.
+							For example, you may want to create an internal data class (record).
+						</div>
+					</li>
+					<!--					<li>-->
+					<!--						<strong>Access Control</strong>-->
+					<!--						<div>-->
+					<!--							Inner classes can access members of the outer class, including those marked as private.-->
+					<!--							This feature is helpful when you need to create a helper class that needs access to an outer-->
+					<!--							class’s fields or methods.-->
+					<!--						</div>-->
+					<!--					</li>-->
+					<li>
+						<strong>Encapsulation & Access Control</strong>
+						<div>
+							Inner classes can access members of the outer class, including those marked as private.
+							This can benefit us in multiple scenarios, such us when creating helper classes without exposing
+							private methods or fields of the outer class.
+							<!--							Consider two top-level classes, A and B, where B needs access to the private members of A.-->
+							<!--							We could change the visibility of A's members from private to protected or public to allow B access.-->
+							<!--							However, this would also provide access to all other classes which is sometimes not desirable.-->
+						</div>
+					</li>
+					<li>
+						<strong>Increased Readability and Maintainability</strong>
+						<div>
+							Inner classes are used for code that is relevant to a small part of the outer class.
+							Grouping them together improves code readability and maintainability.
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Static Objects</h3>
+				<p>Static object is object of which only one instance in memory exists.</p>
+				<p>
+					Java has no top-level static classes, only nested static classes can be defined as static.
+					There are, however, techniques by which you can be used create static object in Java,
+					which we will discuss later in the course.
+				</p>
+				<pre>
+					Example:
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						class StringUtils {
+
+							public static int DECIMAL_PLACES = 2;
+
+							public static String formatNumber(double number) {
+								// code to format number
+							}
+
+						}
+					</code>
+				</pre>
+				<pre>
+					Usage:
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class Main {
+
+							public static void main(String[] args) {
+
+								String formattedNumber = StringUtils.formatNumber(12234567890.1234);
+
+								System.out.println(formattedNumber);
+
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h4>Use case for static objects</h4>
+				<ul>
+					<li>
+						<strong>Utility or Helper Classes</strong>
+						<div>
+							Sometimes we need some methods to be globally available in the application without needing to create class instance every time.
+							Example of such is utility classs with static methods is <code><strong>String.valueOf()</strong></code>
+							or <code><strong>Integer.toBinaryString()</strong></code>.
+						</div>
+					</li>
+					<li>
+						<strong>Global Constants and Variables</strong>
+						<div>
+							Static keyword can be used to define class level variables hat are accessible throughout our application.
+						</div>
+					</li>
+					<li>
+						<strong>Singleton Pattern</strong>
+						<div>
+							Singleton class is a design pattern that restricts the instantiation of a class to a single instance.
+						</div>
+					</li>
+
+				</ul>
+			</section>
+			<section>
+				<h3>Anonymous Classes</h3>
+				<p>
+					In Java, an anonymous class is an inner class (a class within another class), which does not have a name.
+					Since it has no name, we have no way to instantiate such class. Thus, an anonymous class must be declared and instantiated with a single expression.
+				</p>
+				<p>
+					An anonymous class must either implement an interface or extend an existing class (abstract or concrete).
+				</p>
+				<p>
+					Anonymous classes are helpful when we wish to use a local class only once, but their use is
+					generally discouraged in favour of Lambda expression (which I'll explain shortly).
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class Main {
+
+							public static void main(String[] args) {
+
+								Runnable r = new Runnable() { // anonymous class body
+									@Override
+									public void run() {
+										System.out.println("Anonymous class implementing Runnable interface!");
+									}
+								};
+
+								r.run();
+							}
+						}
+					</code>
+				</pre>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Packages, Imports and Modifiers</h2>
+			</section>
+			<section>
+				<h2>Packages</h2>
+				<ul>
+					<li>Packages are a way of organizing code. They are basically directories.</li>
+					<li>Package statement is usually the first line of code in any *.java file (line 1).</li>
+					<li>If you want to use class from another package, you must <code style="font-weight: bold">import</code> it (line 3).</li>
+				</ul>
+				<pre>
+					<code data-trim data-noescape data-line-numbers="1|3" class="hljs java">
+						package com.harbourspace.practice; // <- package name
+
+						import java.time.LocalDate; // <- import of class LocalDate from java.time package
+
+						public class User {
+
+							private final String name;
+							private final LocalDate dateOfBirth;
+
+							public User(String name, LocalDate dateOfBirth) {
+								this.name = name;
+								this.dateOfBirth = dateOfBirth;
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Modifiers</h3>
+				<p>
+					You already encountered them in the previous examples. <br />
+					There are two types of modifiers in Java:
+				</p>
+				<ul>
+					<li>
+						<strong>Access Modifiers</strong>
+						<div>
+							Usable on classes, methods and field, they determine visibility form other parts of the code.
+						</div>
+					</li>
+					<li>
+						<strong>Non-Access Modifiers</strong>
+						<div>
+							Define other characteristics of classes, methods and attributes.
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h4>Access Modifiers</h4>
+				<table>
+					<thead>
+					<tr>
+						<td><strong>modifier</strong></td>
+						<td><strong>on class</strong></td>
+						<td><strong>on method</strong></td>
+						<td><strong>on field</strong></td>
+					</tr>
+					</thead>
+					<tbody style="font-size: 80%">
+					<tr>
+						<td><strong><code>public</code></strong></td>
+						<td>accessible from anywhere</td>
+						<td>accessible from anywhere</td>
+						<td>accessible from anywhere</td>
+					</tr>
+					<tr>
+						<td><strong><code>private</code></strong></td>
+						<td>only accessible within the same package</td>
+						<td>only accessible within same class</td>
+						<td>only accessible within same class</td>
+					</tr>
+					<tr>
+						<td><strong><code>protected</code></strong></td>
+						<td>accessible within the same package</td>
+						<td>only accessible within same class or it's subclass</td>
+						<td>only accessible within same class or it's subclass</td>
+					</tr>
+					<tr>
+						<td><strong style="font-style: italic">default</strong></td>
+						<td>same as private</td>
+						<td>same as private</td>
+						<td>same as private</td>
+					</tr>
+					</tbody>
+				</table>
+			</section>
+			<section>
+				<h3>Non-Access Modifiers</h3>
+				<table>
+					<thead>
+					<tr>
+						<td><strong>modifier</strong></td>
+						<td><strong>on class</strong></td>
+						<td><strong>on method / block</strong></td>
+						<td><strong>on field</strong></td>
+					</tr>
+					</thead>
+					<tbody style="font-size: 70%">
+					<tr>
+						<td><strong><code>static</code></strong></td>
+						<td>N/A</td>
+						<td>accessible without need to create class instance</td>
+						<td>Make variable global, also called <em>class variable</em>, as opposed to <em>instance variable</em>.</td>
+					</tr>
+					<tr>
+						<td><strong><code>final</code></strong></td>
+						<td>prevents inheritance</td>
+						<td>prevents method overloading</td>
+						<td>Makes variable a constant = value cannot be changed after initialization.</td>
+					</tr>
+					<tr>
+						<td><strong><code>abstract</code></strong></td>
+						<td>Class marked as abstract cannot be directly instantiated.</td>
+						<td>Method marked as abstract does not provide implementation, but expects a <em>subclass</em> to implement it.</td>
+						<td>N/A</td>
+					</tr>
+					<tr>
+						<td><strong><code>synchronized</code></strong></td>
+						<td>N/A</td>
+						<td>Used to control access to an object by multiple threads. It is primarily used to prevent thread interference.</td>
+						<td>N/A</td>
+					</tr>
+					<tr>
+						<td><strong><code>volatile</code></strong></td>
+						<td>N/A</td>
+						<td>N/A</td>
+						<td>Used in multi-threaded environment, ensures that changes made in one thread are immediately reflect in another thread.</td>
+					</tr>
+					<tr>
+						<td><strong><code>native</code></strong></td>
+						<td>N/A</td>
+						<td>Used to declare a method that is implemented in native code using JNI (Java Native Interface).</td>
+						<td>N/A</td>
+					</tr>
+					<tr>
+						<td><strong><code>transient</code></strong></td>
+						<td>N/A</td>
+						<td>N/A</td>
+						<td>Used in object serialization, it indicates that a field should not be serialized.</td>
+					</tr>
+					</tbody>
+				</table>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Functions and Methods</h2>
+			</section>
+			<section>
+				<h3>Functions and Methods</h3>
+				<blockquote>
+					What is the difference between function and method?
+				</blockquote>
+				<p class="fragment fade-in">
+					Method == function associated with and object
+				</p>
+				<br />
+				<p class="fragment fade-in">
+					Java has no way of writing functions outside of class, so Java only has methods.
+					<br />
+					Other languages JVM, such as Kotlin, support functions defined outside of classes.
+				</p>
+			</section>
+			<section>
+				<h3>Method</h3>
+				<p>
+					Method is a function associated with object.
+					Method in java has the following components:
+				</p>
+				<ul style="font-size: 80%">
+					<li>
+						<strong>Method Name</strong>
+						<ul>
+							<li>Method names should comply with Java method naming convention = verb, in mixed case with the first letter lowercase, with the first letter of each internal word capitalized.</li>
+						</ul>
+					</li>
+
+					<li>
+						<strong>Return Type</strong>
+						<ul>
+							<li>All methods most specify return type</li>
+							<li>If method does not return any value, it must define <strong>void</strong> as return type</li>
+						</ul>
+					</li>
+					<li>
+						<strong>Argument(s) (optional)</strong>
+						<ul>
+							<li>Method may have zero or more arguments</li>
+							<li>Each argument must have name and type</li>
+						</ul>
+					</li>
+					<li>
+						<strong>Modifiers (optional)</strong>
+						<ul>
+							<li>Access modifiers: private, protected, public</li>
+							<li>Non-access modifiers: static, abstract, synchronized</li>
+							<li>If method does not have an access modifier, then it is considered <strong>private</strong></li>
+						</ul>
+					</li>
+					<li>Class constructor is a special kind of method.</li>
+				</ul>
+			</section>
+			<section>
+				<h4>Method</h4>
+				<pre>
+					Private method with void return type and no arguments:
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+					private void resetCounter() {
+						this.counter = 0;
+					}
+					</code>
+				</pre>
+				<pre>
+					Public with no arguments, returning value - this type of method is also called <strong>getter</strong>:
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+					public int getCount() {
+						return this.counter;
+					}
+					</code>
+				</pre>
+				<pre>
+					Public method with one argument, no return value - this type of method is also called <strong>setter</strong>:
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+					public void setCount(int count) {
+						this.counter = count;
+					}
+					</code>
+				</pre>
+				<pre>
+					Protected method with multiple arguments and return value:
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+					protected long multiplyNumbers(int a, int b) {
+						return a * b;
+					}
+					</code>
+				</pre>
+				<pre>
+					Public constructor method:
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public User(String name, LocalDate dateOfBirth) {
+							this.name = name;
+							this.dateOfBirth = dateOfBirth;
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Variable arguments</h3>
+				<p>
+					There are cases where it is impractical to specify a fix set of parameters.
+					The's imagine en example ...
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						message("Hello from Bangkok!", "Gabi");
+						message("Hello from Bangkok!", "Gabi", "Jane");
+						message("Hello from Bangkok!", "Gabi", "Jane", "Tyna");
+					</code>
+				</pre>
+				<p>
+					We can implement this example by 3 methods ...
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+					 	void message(String text, String recipient) {
+							// some code
+						}
+
+						void message(String text, String recipient1, String recipient2) {
+							// some code
+						}
+
+						void message(String text, String recipient1, String recipient2, String recipient3) {
+							// some code
+						}
+					</code>
+				</pre>
+				<p>
+					Or we can pass an array as the argument ...
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						void message(String text, String[] recipients) {
+							// some code
+						}
+					</code>
+				</pre>
+				<p>
+					But there is a better way ...
+				</p>
+			</section>
+			<section>
+				<h4>Variable arguments</h4>
+				<p>
+					Instead of implementing multiple methods or passing an array, we can use <strong>vararg</strong> argument.
+					This is done using the ellipsis operator <code class="inline">...</code>
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						static void message(String text, String... recipient) {
+							// some code
+						}
+					</code>
+				</pre>
+				<p>
+					And we can then call it with as many arguments as we like.
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						message("Hello from Bangkok!", "Gabi");
+						message("Hello from Bangkok!", "Gabi", "Jane");
+						message("Hello from Bangkok!", "Gabi", "Jane", "Tyna");
+						message("Hello from Bangkok!", "Gabi", "Jane", "Tyna", "Jim");
+					</code>
+				</pre>
+				<p>
+					The only rule is that there must be only one <strong>vararg</strong> argument,
+					and it <strong>must be the last argument!</strong>
+				</p>
+			</section>
+			<section>
+				<h3>Lambda Expression</h3>
+				<hr />
+				<p>
+					Lambda expressions, also known as anonymous functions, provide a way to represent one method
+					interface using an expression. This can be very beneficial in functional programming.
+				</p>
+				<hr />
+				<p>
+					<strong>In simpler words:</strong> <br />It's a way to write a temporary function without need to write a whole new method for it
+				</p>
+				<pre>
+					Example of lambda without arguments and no return value:
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						Runnable r = () -> System.out.println("Hello world");
+					</code>
+				</pre>
+				<p>
+					Lambdas are often used as method parameters.
+				</p>
+				<pre>
+					Example of witht arguments and return value:
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+					List<String> names = Arrays.asList("Alex", "Eve", "Dan", "Chris", "Bill");
+
+					Collections.sort(names, (a, b) -> a.compareTo(b)); // lambda as a parameter of Collections.sort
+					</code>
+				</pre>
+				<p>
+					Lambda expression was introduced in Java SE 8.
+				</p>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Enums</h2>
+			</section>
+			<section>
+				<h3>Enums</h3>
+				<hr />
+				<p>
+					Enum (enumeration) is a special type of class, which contains a fixed set of constants.
+				</p>
+				<hr />
+				<ul>
+					<li>Enum constants are static and final implicitly.</li>
+					<li>By convention, the enum values should be in upper case.</li>
+					<li>Enum is created with the <code><strong>enum</strong></code> keyword (instead of <code><strong>class</strong></code>).</li>
+				</ul>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public enum Days {
+							SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+						}
+					</code>
+				</pre>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class EnumExample {
+
+							public static void main(String[] args) {
+
+								Days day = Days.MONDAY;
+								System.out.println(day); // prints MONDAY
+
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<h3>Enums</h3>
+				<p>
+					Since enum is a class, it may have <em>fields</em>, <em>constructors</em> and <em>methods</em>.
+				</p>
+				<pre>EnumExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						enum Days {
+							MONDAY(true),
+							TUESDAY(true),
+							WEDNESDAY(true),
+							THURSDAY(true),
+							FRIDAY(true),
+							SATURDAY(false),
+							SUNDAY(false);
+
+							private final boolean isWorkDay;
+
+							Days(boolean isWorkDay) {
+								this.isWorkDay = isWorkDay;
+							}
+
+							public boolean isWorkDay() {
+								return isWorkDay;
+							}
+						}
+					</code>
+				</pre>
+				<pre>EnumExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class EnumExample {
+
+							public static void main(String[] args) {
+
+								Days day = Days.MONDAY;
+								System.out.println(day); // prints MONDAY
+								System.out.println(day.isWorkDay()); // prints true
+
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<h3>Enums</h3>
+				<p>
+					Enums are very useful for evaluating finite number of states and also for
+				</p>
+				<pre>EnumExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class EnumExample {
+
+							public static void main(String[] args) {
+
+								System.out.println(getHoursInClass(Days.WEDNESDAY)); // prints 3
+
+							}
+
+							private static int getHoursInClass(Days day) {
+								switch (day) {
+									case MONDAY, TUESDAY, THURSDAY -> {
+										return 4;
+									}
+									case WEDNESDAY, FRIDAY -> {
+										return 3;
+									}
+									case SATURDAY, SUNDAY -> {
+										return 1;
+									}
+									default -> {
+										return 0;
+									}
+								}
+							}
+						}
+					</code>
+				</pre>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Practice</h2>
+			</section>
+		</section>
+	</div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+	// More info about initialization & config:
+	// - https://revealjs.com/initialization/
+	// - https://revealjs.com/config/
+	Reveal.initialize({
+		hash: true,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+	});
+</script>
+</body>
+</html>

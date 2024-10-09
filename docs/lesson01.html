@@ -1,0 +1,1875 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="./dist/reset.css">
+	<link rel="stylesheet" href="./dist/reveal.css">
+	<link rel="stylesheet" href="./dist/theme/motyka.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="./plugin/highlight/vs.css">
+</head>
+<body>
+<div class="reveal" >
+	<div class="slides">
+		<section>
+			<section data-background-color="#523996">
+				<i>Week 1 | Lesson 1</i>
+				<h1>Introduction to Java</h1>
+				<em>History, Syntax, Types, Operators, Conditionals</em>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Introduction to Java</h2>
+			</section>
+			<section>
+				<h3>Brief history of Java</h3>
+				<ul style="text-align: left;">
+					<li>Developed by Sun Microsystems</li>
+					<li>Introduced in 1995</li>
+					<li>First version available in 1996</li>
+					<li>Open source since 2007</li>
+					<li>Sun Microsystems was acquired by Oracle in 2010</li>
+				</ul>
+				<br />
+				<img src="./img/java.png" alt="Java Logo" style="width: 200px"/>
+			</section>
+			<section>
+				<h3>Key features of Java</h3>
+				<div style="text-align: left;">
+					<p>
+						<b>Simple</b><br/>
+						<i style="font-size: 80%">easy to learn and use, familiar syntax (based on C++), memory management</i>
+					</p>
+					<p>
+						<b>Object-Oriented</b><br/>
+						<i style="font-size: 80%">everything in Java is an object</i>
+					</p>
+					<p>
+						<b>Platform Independent, Portable, Architecture-Neutral</b><br/>
+						<i style="font-size: 80%">write once, run anywhere (on java virtual machine), compiled to Java byte code, no specific architecture dependent features (for example data types)</i>
+					</p>
+					<p>
+						<b>Multi-Threaded</b><br/>
+						<i style="font-size: 80%">enables concurrent task execution</i>
+					</p>
+					<p>
+						<b>Secure</b><br/>
+						<i style="font-size: 80%">no pointers, runs inside virtual machine, guards against illegal access to resources</i>
+					</p>
+					<p>
+						<b>Robust</b><br/>
+						<i style="font-size: 80%">no pointers, memory management, strong type checking</i>
+					</p>
+					<p>
+						<b>High Performance</b><br/>
+						<i style="font-size: 80%">slower than compiled languages, but fast for interpreted language due java byte code being close to native code</i>
+					</p>
+				</div>
+			</section>
+			<section>
+				<em>Java has two main components ...</em>
+				<br />
+				<br />
+				<h3>Java Runtime Environment (JRE)</h3><br/>
+				<p>
+					The JRE provides the libraries, the Java Virtual Machine (JVM),
+					and other components needed to run applications written in Java.
+					It does not include developer tools such as compilers and debuggers.
+					<br />
+					<br />
+					<em>
+						As a user, you would use the JRE to run Java programs on your system.
+					</em>
+				</p>
+				<br />
+				<p>
+				<h3>Java Development Kit (JDK)</h3><br/>
+				<p>
+					The JDK includes the JRE as well as a set of development tools for writing and running Java programs.
+					These tools include the Java compiler (javac), an archiver (jar), a documentation generator (javadoc),
+					and other tools needed in Java development.
+					<br />
+					<br />
+					<em>
+						As a programmer, you would use the JDK to develop Java applications.
+					</em>
+				</p>
+			</section>
+			<section>
+				<h3>Java Development Kit (JDK)</h3>
+				<em>Since open sourcing, multiple implementations of JDK exists ...</em>
+				<div style="text-align: left;">
+					<p>
+						<b>Oracle JDK</b><br />
+						<i style="font-size: 80%">widely used, but need to purchase license for commercial use</i>
+					</p>
+					<p>
+						<b>OpenJDK</b><br />
+						<i style="font-size: 80%">open-source, Oracle JDK's source code is based on this, and it's free to use</i>
+					</p>
+					<p>
+						<b>Amazon Corretto</b><br />
+						<i style="font-size: 80%">free, active support, performance enhancements, security fixes</i>
+					</p>
+					<p>
+						<b>AdoptOpenJDK/Adoptium</b><br />
+						<i style="font-size: 80%">community-led</i>
+					</p>
+					<p>
+						<b>Azul Zulu OpenJDK</b><br />
+						<i style="font-size: 80%">free to use</i>
+					</p>
+					<p>
+						<b>IBM OpenJ9</b><br />
+						<i style="font-size: 80%">open-source, optimized for small memory footprint, fast startup, and high throughput</i>
+					</p>
+				</div>
+				<aside class="notes">
+					<b>Oracle JDK:</b> Oracle provides a JDK implementation that is probably the most widely used. It is commercial, and you would need to purchase a license to use it on commercial projects.
+					<b>OpenJDK:</b> OpenJDK is the open-source implementation of the Java SE Platform. Oracle JDK's source code is based on this, and it's free to use.
+					<b>Amazon Corretto:</b> Amazon provides this no-cost distribution of OpenJDK. It comes with long-term support that includes performance enhancements and security fixes.
+					<b>AdoptOpenJDK/Adoptium:</b> AdoptOpenJDK is a community-led initiative that provides pre-built OpenJDK binaries. It has been shifted to a new project Adoptium now.
+					<b>Azul Zulu OpenJDK:</b> Azul provides Zulu, which is a certified build of OpenJDK and is free to use.
+					<b>IBM OpenJ9:</b> OpenJ9 is an open-source JVM from IBM, optimized for small memory footprint, fast startup, and high throughput.
+				</aside>
+			</section>
+			<section>
+				<h3>Java Releases: Major Versions</h3>
+				<ul style="font-size: 80%">
+					<li>1990s - project start</li>
+					<li>1995 - officially named Java</li>
+					<li>1996 - Java Development Kit (JDK) 1.0</li>
+					<li>1997 - JDK 1.1</li>
+					<li>1998 - J2SE 1.2</li>
+					<li>2000 - J2SE 1.3</li>
+					<li>2002 - J2SE 1.4</li>
+					<li>2004 - J2SE 5.0</li>
+					<li>2006 - Java SE 6</li>
+					<li>2011 - Java SE 7</li>
+					<li>2014 - Java SE 8</li>
+					<li>2017 - Java SE 9</li>
+					<li>2018 - Java SE 10, 11</li>
+					<li>2019 - Java SE 12, 13</li>
+					<li>2020 - Java SE 14, 15</li>
+					<li>2021 - Java SE 16, 17, 18</li>
+					<li>2022 - Java SE 19</li>
+				</ul>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Java Today</h2>
+				<i>Where does it stand compared to other languages?</i>
+			</section>
+			<section>
+				<h3>Use right tools for the job</h3>
+				<div>
+					<img src="./img/hammer.jpg" alt="Hammer" style="width: 600px"/>
+					<blockquote>
+						“If the only tool you have is a hammer, you tend to see every problem as a nail.”
+						(Abraham Maslow)
+					</blockquote>
+				</div>
+			</section>
+			<section>
+				<h3>C/C++ </h3>
+				<hr />
+				<p>
+					<em>
+						The C/C++ family of languages is known for its high-performance capabilities,
+						offering programmers a high level of control over system resources.
+					</em>
+				</p>
+				<hr />
+				<ul>
+					<li>They are best suited for tasks where efficiency, performance, or precise control is paramount.</li>
+					<li>More complicated syntax and lack of modern language conveniences can make them more challenging to master.</li>
+					<li>Developers must handle memory management manually, which can introduce errors, vulnerabilities, and security risks.</li>
+					<li>Implementing high-level, complex business requirements may require a considerable amount of skill and lines of code.</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Python</h3>
+				<hr />
+				<p>
+					<em>Python is a powerful and flexible, well suited for working with data or scripting.</em>
+				</p>
+				<hr />
+				<ul>
+					<li>Python has simple and readable syntax, making it accessible to beginners</li>
+					<li>
+						It's an interpreted language, which can make it slightly slower than Java in certain scenarios.
+						<em style="font-size: 80%">However, scientific computation libraries like NumPy and SciPy leverage C for enhanced performance.</em>
+					</li>
+					<li>Due to its extensive libraries, Python is widely favored among the data science community.</li>
+					<li>Python's flexibility may introduce security and type-safety concerns during runtime</li>
+				</ul>
+			</section>
+			<section>
+				<h3>JavaScript / TypeScript</h3>
+				<hr />
+				<p>
+					<em>
+						JavaScript and TypeScript are widely used for front-end web development, enabling interactive web applications.
+						Additionally, server-side JavaScript and TypeScript, powered by Node.js, have gained popularity.
+					</em>
+				</p>
+				<hr />
+				<ul>
+					<li>Easy to learn, fast to develop, and flexible.</li>
+					<li>Large community with abundant frameworks and tools.</li>
+					<li>However, they can be relatively inefficient as it is interpreted language and by design runs in a single thread.</li>
+					<li>Vanilla JavaScript lacks type safety and robustness, potentially compromising overall safety.</li>
+					<li>Not ideal for high-availability or critical systems.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Java</h3>
+				<hr />
+				<p>
+					<em>Java offers a balanced mix of efficiency, power, flexibility, and safety.</em>
+				</p>
+				<hr />
+				<ul style="font-size: 90%">
+					<li>Not as efficient as C/C++, but generally performs really well</li>
+					<li>Not as flexible as Python/JavaScript/TypeScript, but flexible enough</li>
+					<li>Larger memory footprint than Python, but its robust safety features compensate for this</li>
+					<li>Java is mostly used for:
+						<ul>
+							<li>Web Applications - <em>mostly the application backend</em></li>
+							<li>Mobile Applications - <em>Android, although it is being replaced by Kotlin</em></li>
+							<li>Enterprise Applications - <em>Java EE, banking and finance systems, healthcare systems, etc.</em></li>
+							<li>Cloud-based Applications - <em>serverless applications, cloud functions</em></li>
+							<li>Scientific Applications & Big Data - <em>AI and ML applications, Apache Spark, etc.</em></li>
+							<li>Gaming - <em>mostly on Android (What popular game is in Java?)</em></li>
+							<li>IoT & Embedded Systems - <em>IoT, embedded systems, smart devices</em></li>
+							<li>Middleware - <em>such as web servers, WebSphere, Tomcat, ...</em></li>
+							<li>Desktop GUI Applications - <em>JavFX, Swing</em></li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3>C#</h3>
+				<hr />
+				<p>
+					<em>
+						C# is often regarded as one of Java's major competitors.
+						While they share many similarities in terms of usage and capabilities, there are key differences.
+					</em>
+				</p>
+				<hr />
+				<ul style="font-size: 80%">
+					<li>They are pretty similar in terms of usage and capabilities</li>
+					<li>
+						Java was initially intended for cross-platform compatibility through the Java Virtual Machine (JVM),
+						adhering to the "Write Once, Run Anywhere" principle.
+					</li>
+					<li>In contrast, C# was originally developed for Windows development within the .NET framework.</li>
+					<li>Today, C# has expanded its reach to different platforms through .NET Core.</li>
+					<li>Both languages are rooted in the syntax of C/C++, but C# offers more syntactic sugar, incorporating features like properties, indexers, and events directly into the language.</li>
+					<li>Both Java and C# boast extensive libraries and enjoy large user bases.</li>
+				</ul>
+				<p>
+					<em>Can't really say much about C# from my own experience, I have used it very shortly.</em>
+				</p>
+			</section>
+			<section>
+				<h3>Scala</h3>
+				<hr />
+				<p>
+					<em>
+						Scala is a powerful language compiled into Java bytecode. It actually runs on JVM, just like Java.
+					</em>
+				</p>
+				<hr />
+				<ul>
+					<li>Strong typing, enhanced safety, but mastering it may be challenging.</li>
+					<li>Modern syntax with type inference support.</li>
+					<li>High performance, with built-in support for parallel processing and concurrency through the actor model.</li>
+					<li>Designed for functional programming, while also supporting object-oriented programming.</li>
+					<li>Full interoperability with Java in both directions.</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Kotlin</h3>
+				<hr />
+				<p>
+					<em>
+						Kotlin emerges as a leading alternative to Java. It also compiles to Java bytecode, therefore runs on JVM as well.
+					</em>
+				</p>
+				<hr />
+				<ul>
+					<li>It encompasses all of Java's features and more.</li>
+					<li>As a modern language, it introduces explicit null safety, implicit type inference, and functional programming support.</li>
+					<li>While not as robust as Scala, Kotlin has a gentler learning curve.</li>
+					<li>Supports concurrency through coroutines.</li>
+					<li>Just like Scala, Kotlin is interoperable with Java.</li>
+				</ul>
+				<p>
+					<img src="./img/heart.jpg" alt="I love Kotlin" style="width: 100px;" />
+					<br />
+					<em>My personal favorite :)</em>
+				</p>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Object-oriented programming</h2>
+			</section>
+
+			<section>
+				<h3>Object-oriented programming</h3>
+				<p>
+					<em>There are four main principles in OOP ...</em>
+				</p>
+				<ol>
+					<li>
+						<strong>Encapsulation</strong><br />
+						is a concept of controlling access to the internal state of an object, protecting it from unauthorized access and ensuring data integrity.
+					</li>
+					<li>
+						<strong>Inheritance</strong><br />
+						enables class to have the same behavior as another class by inheriting its properties and methods.
+					</li>
+					<li>
+						<strong>Polymorphism</strong><br />
+						allows us to define one interface or method that can have multiple implementations.
+						It means that the same method or property could exhibit different behavior in different instances of object implementing given interface.
+					</li>
+					<li>
+						<strong>Abstraction</strong><br />
+						is a mechanism to represent the object features without exposing the actual implementation details.
+						In other words, user of such object only needs to know what it does, not how it does it.
+					</li>
+				</ol>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Java Language Syntax</h2>
+			</section>
+			<section>
+				<h3>Naming Conventions</h3>
+				<pre>
+					<code data-trim data-noescape data-line-numbers="1-16|1|3,16|5-6|11,14|12|8-10|1-16" class="hljs java">
+						package com.package.domain;
+
+						class MyClass {
+
+							int myVariable = 42;
+							Foo foo = new Foo();
+
+							/*
+							Block comment
+							*/
+							String myFunction(long number) {
+								// important comment
+								foo.bar();
+							}
+
+						}
+					</code>
+				</pre>
+				<ul style="font-size: 80%">
+					<li><strong>Package</strong> name is always written in all-lowercase.</li>
+					<li><strong>Class</strong> name should be nouns in mixed case with the first letter of each internal word capitalized. Should be sufficiently descriptive.</li>
+					<li><strong>Interface</strong> name should be capitalized like class name.</li>
+					<li><strong>Method</strong> name should be verb, in mixed case with the first letter lowercase, with the first letter of each internal word capitalized.</li>
+					<li><strong>Variable</strong> name should be in mixed case with a lowercase first letter. Internal words start with capital letters. Should be meaningful and descriptive</li>
+					<li><strong>Constants</strong> name should be noun with each letter of internal word capitalized. Should be sufficiently descriptive.</li>
+				</ul>
+				<em style="font-size: 80%">
+					Full set of recommendation by Oracle can be found <a href="https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html">here</a>.
+				</em>
+			</section>
+
+			<section>
+				<h4>The "Hello World"</h4>
+				<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						public class HelloWorld {
+
+							public static void main(String[] args) {
+
+								System.out.println("Hello, World!");
+
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+		</section>
+
+		<section>
+			<section data-background-color="#523996">
+				<h2>Java Data Types</h2>
+			</section>
+
+			<section>
+				<h2>Java Data Types</h2>
+				<p>
+					<em>There are two groups of data types in Java ...</em>
+				</p>
+				<div style="text-align: left;">
+					<h4>Primitive types</h4>
+					<p>
+						<code>boolean</code><br />
+						<code>byte</code><br />
+						<code>short</code><br />
+						<code>int</code><br />
+						<code>long</code><br />
+						<code>float</code><br />
+						<code>double</code><br />
+						<code>char</code>
+					</p>
+				</div>
+				<br />
+				<div style="text-align: left;">
+					<h4>Non-primitive types</h4>
+					<p>String, Arrays and Classes</p>
+					<br />
+					<p>
+						<em>Note: variables that are assigned a non-primitive type are called reference variables, and we will talk more about them later.</em>
+					</p>
+				</div>
+			</section>
+			<section>
+				<h3>Primitive types</h3>
+				<table>
+					<tbody>
+					<tr><td><code>boolean</code></td><td>1 byte</td><td>value of true or false</td></tr>
+					<tr><td><code>byte</code></td><td>1 byte</td><td>whole number from -128 to 127</td></tr>
+					<tr><td><code>short</code></td><td>2 bytes</td><td>whole number from -32768 to 32767</td></tr>
+					<tr><td><code>int</code></td><td>4 bytes</td><td>whole number from -2147483648 to 2147483647</td></tr>
+					<tr><td><code>long</code></td><td>8 bytes</td><td>whole number from -9223372036854775808 to 9223372036854775807</td></tr>
+					<tr><td><code>float</code></td><td>4 bytes</td><td>fractional number up to 7 decimal digits</td></tr>
+					<tr><td><code>double</code></td><td>8 bytes</td><td>fractional number up to 15 decimal digits</td></tr>
+					<tr><td><code>char</code></td><td>2 bytes</td><td>a single character/letter or ASCII values</td></tr>
+					</tbody>
+				</table>
+				<blockquote>
+					Java is a high-level programming language with automatic memory management, and no pointers (unlike C/C++).
+					<br />
+					<br />
+					Why is this still important for us to understand?
+				</blockquote>
+			</section>
+			<section>
+				<h4>Primitive types</h4>
+				<pre>PrimitiveDataTypesExample.java
+					<code data-trim data-noescape class="hljs java">
+						public class PrimitiveDataTypesExample {
+
+							public static void main(String[] args) {
+
+								boolean isTruthy = true;
+								byte index = 127;
+								short smallNumber = 32767;
+								int number = 2147483647;
+								long bigNumber = 9223372036854775807L; // notice L at the end
+								float decimalNumber = 123.12346f; // notice f at the end
+								double preciseNumber = 123.12345886230469;
+								char character = 'a';
+
+								System.out.println("boolean: " + isTruthy);
+								System.out.println("byte: " + index);
+								System.out.println("short: " + smallNumber);
+								System.out.println("int: " + number);
+								System.out.println("long: " + bigNumber);
+								System.out.println("float: " + decimalNumber);
+								System.out.println("double: " + preciseNumber);
+								System.out.println("char: " + character);
+
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h4>Binary and hexadecimal data representation</h4>
+				<p>
+					It is sometimes practical to represent data in binary or hexadecimal format to make the code more readable.
+				</p>
+				<p>
+					You do that by prefixing the number with <code><strong>0b</strong></code> followed by 1s and 0s for binary representation,
+					<br />
+					or <code><strong>0x</strong></code> followed by characters or hexadecimal representation.
+				</p>
+				<table style="width: 100%">
+					<tbody>
+					<tr>
+						<td>
+							<pre>PrimitiveTypesBinaryExample.java
+								<code data-trim data-noescape class="hljs java">
+									public class PrimitiveTypesBinaryExample {
+
+										public static void main(String[] args) {
+
+											int binaryInt = 0b00001010;
+											System.out.println(binaryInt);       // prints 10
+											System.out.println(binaryInt == 10); // prints true
+
+										}
+
+									}
+								</code>
+							</pre>
+						</td>
+						<td>
+							<strong>Examples:</strong>
+							<br />
+							<br />
+							<code>0b0</code> = 0<br />
+							<code>0b1</code> = 1<br />
+							<code>0b00001010</code> = 10<br />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<pre>PrimitiveTypesHexExample.java
+								<code data-trim data-noescape class="hljs java">
+									public class PrimitiveTypesHexExample {
+
+										public static void main(String[] args) {
+
+											int hexInt = 0x00AA;
+											System.out.println(hexInt);         // prints 170
+											System.out.println(hexInt == 170);  // prints true
+
+										}
+
+									}
+								</code>
+							</pre>
+						</td>
+						<td>
+							<strong>Examples:</strong>
+							<br />
+							<br />
+							<code>0x0</code> = 0<br />
+							<code>0xF</code> = 15<br />
+							<code>0x00AA</code> = 170<br />
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</section>
+			<section>
+				<h4>The two's complement</h4>
+				<hr />
+				<p>
+					In Java, two's complement is used for the representation of signed integers.
+					A negative number is represented as the two's complement of its absolute value.
+					This allows positive and negative numbers to be added together directly.
+				</p>
+				<hr />
+				<ul>
+					<li>
+						<strong>For positive integers</strong>, the two's complement representation is the same as their binary representation.
+					</li>
+					<li>
+						<strong>For negative integers</strong>, you use binary representation of the absolute value of the number, then you invert each bit, and finally add 1 to the least significant bit (LSB).
+					</li>
+				</ul>
+				<blockquote>
+					<strong>Example: Binary representation of -5</strong>
+					<ol>
+						<li>The binary representation of absolute value of -5 (=5) is <code>0101</code></li>
+						<li>Inverting each bit gives you <code>1010</code></li>
+						<li>Adding 1 to the least significant bit gives you the binary representation of -5, which is: <code>1011</code></li>
+					</ol>
+				</blockquote>
+			</section>
+			<section>
+				<h3>Type Casting</h3>
+				<hr />
+				<p>
+					Typecasting is a method of converting one data type to another. Keep in ming, that type casting may result in data loss!
+				</p>
+				<hr />
+				<div style="text-align: left;">
+					<p>
+						<strong>Implicit Casting</strong><br />
+						<span style="font-size: 80%">
+							This is also known as automatic type conversion.
+							This is done by the JVM when we assign a value of smaller data type to a variable of a bigger data type.
+						</span>
+					</p>
+					<pre>
+						<code data-trim data-noescape class="hljs java">
+								int number = 100;
+								long bigNumber = number;          // Implicit type casting, no data loss
+								float floatNumber = bigNumber;    // Implicit type casting, no data loss
+
+								System.out.println(floatNumber);  // 100.0
+							</code>
+						</pre>
+					<p>
+						<strong>Explicit Casting</strong><br />
+						<span style="font-size: 80%">
+							Also known as manual type conversion, we perform casting explicitly.
+							<br />
+							<strong>Upcasting</strong> = assigning smaller data type to larger data type - generally doesn't result in data loss.
+							<br />
+							<strong>Down casting</strong> = assigning larger data type to smaller data type - may result in data loss.
+						</span>
+					</p>
+					<pre>
+							<code data-trim data-noescape class="hljs java">
+								double preciseNumber = 100.04;
+								int wholeNumber = (int) preciseNumber;  // Explicit type casting, resulting in data loss (precision)
+
+								System.out.println(wholeNumber);        // 100
+							</code>
+						</pre>
+				</div>
+			</section>
+			<section>
+				<h3>null</h3>
+				<div style="text-align: left; font-size: 80%">
+					<hr />
+					<p>
+						In Java, <code><strong>null</strong></code> is a special value that represents the absence of an instance. It is used to indicate that a reference variable doesn't point to any memory location or object.
+					</p>
+					<hr />
+					<ol style="font-size: 80%">
+						<li>
+							<b>Reference Variables:</b><br />
+							<i>In Java, you can assign null to any reference variable (non-primitive types: objects, array, interface, etc).</i>
+						</li>
+						<li>
+							<b>Default Value:</b><br />
+							<i>For object reference types, the default value is null when they are defined as class members and not explicitly initialized.</i>
+						</li>
+						<li>
+							<b>NullPointerException:</b><br />
+							<i>If you try to invoke a method or access a property on a reference variable with a null value, you will get a NullPointerException. This is a runtime exception in Java.</i>
+						</li>
+						<li>
+							<b>Comparison:</b><br />
+							<i>You can use null in comparison operations. For example, to check if an object is null, you can use if (object == null).</i>
+						</li>
+						<li>
+							<b>Assigning Null:</b><br />
+							<i>Assigning null to a variable makes it eligible for garbage collection if there are no other references to the object.</i>
+						</li>
+						<li>
+							<b>Method Argument:</b><br />
+							<i>null can be passed as an argument to a method and can also be returned from a method.</i>
+						</li>
+					</ol>
+				</div>
+			</section>
+			<section>
+				<h4>null</h4>
+				<pre>Null assignment to a reference variable (non-primitive type):
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						String str = null;
+						Integer number = null;
+
+						str = "Java";
+						number = 123;
+					</code>
+				</pre>
+
+				<pre>Checking for null:
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						if (str == null) {
+							// do something
+						}
+					</code>
+				</pre>
+				<div style="color: red; border: 1px grey solid;">
+					Assignment of null to a primitive type is not possible. This code will not compile:
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							int number = null;
+						</code>
+					</pre>
+				</div>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Operators</h2>
+			</section>
+			<section>
+				<h2>Operators</h2>
+				<ul>
+					<li>Assignment operators</li>
+					<li>Arithmetic operators</li>
+					<li>Comparison operators</li>
+					<li>Logical operators</li>
+					<li>Bitwise operators</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Assignment Operators</h3>
+				<hr />
+				<p>
+					Assignment operators are used to assign value to <strong>variable</strong> or <strong>constant</strong>.
+				</p>
+				<hr />
+				<ul style="font-size: 80%">
+					<li><b>Variable</b> is container (memory allocation) for storing data, which can be changed during program execution.</li>
+					<li><b>Constant</b> is also container for storing data, but it's value cannot be changed during program execution.</li>
+				</ul>
+				<pre>Examples:
+					<code data-trim data-noescape class="hljs java">
+						// Variables
+						int number = 3;
+						String text = "Hello";
+						Date date = new Date();
+
+						// Constant
+						final static int importantNumber = 42;
+
+					</code>
+				</pre>
+				<br />
+				<blockquote>
+					Can you think of reason why we would want to use variable and reasons why we would want to use constant?
+				</blockquote>
+			</section>
+			<section>
+				<h3>Arithmetic Operators</h3>
+				<table>
+					<tbody>
+					<tr>
+						<td><code>+</code></td>
+						<td>addition</td>
+						<td style="min-width: 300px">
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										double sum = a + b;
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>-</code></td>
+						<td>subtraction</td>
+						<td>
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										double difference = a - b;
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>*</code></td>
+						<td>multiplication</td>
+						<td>
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										double product = a * b;
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>/</code></td>
+						<td>division</td>
+						<td>
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										double quotient = a / b;
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>/</code></td>
+						<td>modulus</td>
+						<td>
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										double remainder = a % b;
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>++</code></td>
+						<td>increment (by 1)</td>
+						<td>
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										double increment1 = ++a;
+										double increment2 = a++;
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>--</code></td>
+						<td>decrement (by 1)</td>
+						<td>
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										double increment1 = --b;
+										double increment2 = b--;
+									</code>
+								</pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</section>
+			<section>
+				<h4>Arithmetic Operators</h4>
+				<blockquote>
+					Notice ++ and -- can be put before or after a value. What is the difference?
+					<br />
+					<br />
+					What will this print?
+					<pre>A)
+						<code data-trim data-noescape class="hljs java">
+							int a = 0;
+							System.out.println(a++);
+						</code>
+						<span class="fragment fade-in">0, because is incremented (by 1) after it is printed</span>
+					</pre>
+					<pre>B)
+						<code data-trim data-noescape class="hljs java">
+							int a = 0;
+							System.out.println(++a);
+						</code>
+						<span class="fragment fade-in">1, because is incremented (by 1) before it is printed</span>
+					</pre>
+					<pre>C)
+						<code data-trim data-noescape class="hljs java">
+							int a = 5; int b = 3;
+
+							System.out.println(a / b);
+						</code>
+						<span class="fragment fade-in">
+							1, because 5 / 3 = 1.666666666666667, but since it is stored as integer, the decimal places are dropped
+						</span>
+					</pre>
+					<pre>D)
+						<code data-trim data-noescape class="hljs java">
+							int a = 5; int b = 3;
+
+							System.out.println(a % b);
+						</code>
+						<span class="fragment fade-in">
+							2, because remainder of integer 5 /3 is 2
+						</span>
+					</pre>
+				</blockquote>
+			</section>
+			<section>
+				<h3>Comparison Operators</h3>
+				<p>
+					As the name suggest, comparison operators are used for comparing values.
+					They always yield a <b>boolean</b> value.
+				</p>
+				<table>
+					<tbody>
+					<tr>
+						<td><code>==</code></td>
+						<td>equals</td>
+						<td style="min-width: 300px">
+							<pre>
+								<code data-trim data-noescape class="hljs java">
+									bool isEqual = a == b;
+								</code>
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>!=</code></td>
+						<td>not equals</td>
+						<td>
+							<pre>
+								<code data-trim data-noescape class="hljs java">
+									bool isNotEqual = a != b;
+								</code>
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>></code></td>
+						<td>is greater</td>
+						<td>
+							<pre>
+								<code data-trim data-noescape class="hljs java">
+										bool isGreater = a > b;
+								</code>
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code><</code></td>
+						<td>is less</td>
+						<td>
+							<pre>
+								<code data-trim data-noescape class="hljs java">
+									bool isLess = a > b;
+								</code>
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>>=</code></td>
+						<td>is greater or equal</td>
+						<td>
+							<pre>
+								<code data-trim data-noescape class="hljs java">
+									bool isGreaterOrEqual = a >= b;
+								</code>
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code><=</code></td>
+						<td>is less or equal</td>
+						<td>
+							<pre>
+								<code data-trim data-noescape class="hljs java">
+									bool isLessOrEqual = a >= b;
+								</code>
+							</pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</section>
+			<section>
+				<h4>Comparison Operators</h4>
+				<blockquote>
+					Given these values, what will be the value of <b>result</b>?
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							int a = 5;
+							int b = 3;
+							int c = 2;
+						</code>
+					</pre>
+					<pre>A)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							bool result = a > b;
+						</code>
+					</pre>
+					<pre>B)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							bool result = a <= b;
+						</code>
+					</pre>
+					<pre>C)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							bool result = a > (b + c);
+						</code>
+					</pre>
+					<pre>D)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							bool result = a >= (b + c);
+						</code>
+					</pre>
+				</blockquote>
+			</section>
+			<section>
+				<h3>Logical Operators</h3>
+				<p>Logical operators are used to evaluate logic between variables or values. They always yields boolean value.</p>
+				<table>
+					<tbody>
+					<tr>
+						<td><code>&&</code></td>
+						<td>logical and</td>
+						<td>returns true if both statements are true</td>
+						<td style="min-width: 450px">
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										bool isTrue = statement1 && statement2;
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>||</code></td>
+						<td>logical or</td>
+						<td>returns true if either statement is true</td>
+						<td>
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										bool isEitherTrue = statement1 || statement2;
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>!</code></td>
+						<td>logical not</td>
+						<td>reverses the result</td>
+						<td>
+							<pre>
+								<code data-trim data-noescape class="hljs java">
+									bool neitherIsTrue = !(statement1 || statement2);
+								</code>
+							</pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</section>
+			<section>
+				<h4>Logical Operators</h4>
+				<blockquote>
+					Given two string variables that can have values <code>cat</code>, <code>dog</code>, or <code>null</code>.
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							String pet1; // = "cat", "dog", null
+							String pet2; // = "cat", "dog", null
+						</code>
+					</pre>
+
+					How would you test if ...
+
+					<br />
+					<br />
+					A) pet1 and pet2 are the same kind of pet?
+					<div class="fragment fade-in">
+						<pre >
+							<code data-line-numbers data-trim data-noescape class="hljs java">
+								boolean hasTwoSamePets = pet1 == pet2;
+							</code>
+						</pre>
+					</div>
+
+					B) pet1 and pet2 are both cats?
+					<div class="fragment fade-in">
+						<pre>
+							<code data-line-numbers data-trim data-noescape class="hljs java">
+								boolean has2Cats = pet1 == "cat" && pet2 == "cat";
+							</code>
+						</pre>
+					</div>
+
+					C) At least one of pet1 and pet2 is a cat?
+					<div class="fragment fade-in">
+						<pre>
+							<code data-line-numbers data-trim data-noescape class="hljs java">
+								boolean hasACat = pet1 == "cat" || pet2 == "cat";
+							</code>
+						</pre>
+					</div>
+
+					D) At least one of pet1 and pet2 is a pet (not null)?
+					<div class="fragment fade-in">
+						<pre>
+							<code data-line-numbers data-trim data-noescape class="hljs java">
+								boolean hasAPet = pet1 != null || pet2 != null;
+							</code>
+						</pre>
+					</div>
+				</blockquote>
+			</section>
+			<section>
+				<h3>Bitwise Operators</h3>
+				<table style="font-size: 60%">
+					<tbody>
+					<tr>
+						<td><code>&</code></td>
+						<td>binary and</td>
+						<td>sets bit to 1 if both bits at the same positions are 1</td>
+						<td style="min-width: 450px">
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										int a = 5; // binary: 0101
+										int b = 3; // binary: 0011
+
+										int result = a & b; // binary: 0001, decimal: 1
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>|</code></td>
+						<td>binary or</td>
+						<td>sets bit to 1 if either of bits at the same positions are 1</td>
+						<td style="min-width: 450px">
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										int a = 5; // binary: 0101
+										int b = 3; // binary: 0011
+
+										int result = a | b; // binary: 0111, decimal: 7
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>|</code></td>
+						<td>binary xor</td>
+						<td>sets bit to 1 if of bits at the same positions are different</td>
+						<td style="min-width: 450px">
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										int a = 5; // binary: 0101
+										int b = 3; // binary: 0011
+
+										int result = a ^ b; // binary: 0110, decimal: 6
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>~</code></td>
+						<td>binary complement operator</td>
+						<td>flips all the bits of the operand; 1s become 0s, and 0s become 1s</td>
+						<td style="min-width: 450px">
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										int a = 5; // binary: 0101
+
+										int result = ~a; // binary: 1010, decimal: -6
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code><<</code></td>
+						<td>signed left shift</td>
+						<td>moves all bits by a given number of bits to the left</td>
+						<td>
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										int a = 5; // binary: 0101
+
+										int result = a << 1; // binary: 1010, decimal: 10
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>>></code></td>
+						<td>signed right shift</td>
+						<td>moves all bits by a given number of bits to the right</td>
+						<td>
+								<pre>
+									<code data-trim data-noescape class="hljs java">
+										int a = 5; // binary: 0101
+
+										int result = a >> 2; // binary: 0001, decimal: 1
+									</code>
+								</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>>>></code></td>
+						<td>unsigned right shift</td>
+						<td>same as the signed right shift, but the vacant leftmost position is filled with 0 instead of the sign bit</td>
+						<td>
+							<pre>
+								<code data-trim data-noescape class="hljs java">
+									int a = -5; // binary equivalent of -5: 11111111111111111111111111111011
+
+									int result = a >>> 1; // shifts right with zero fill
+								</code>
+							</pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</section>
+			<section>
+				<h4>Bitwise Operators</h4>
+				<blockquote style="min-width: 800px">
+					Imagine you have a <b>byte</b> stored in 1 byte (=8 bits), for example 8, which is stored as
+					<code>00001000</code>
+					<br />
+					<br />
+					If you perform following bit shift, what number do you get?
+					<pre>A)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							byte number = 8;
+							int result = number << 1;
+						</code>
+						<span class="fragment fade-in">
+							The result is 16:<br />
+							In binary: 1000 <- 10000
+						</span>
+					</pre>
+					<pre>B)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							byte number = 8;
+							int result = number << 3;
+						</code>
+						<span class="fragment fade-in">
+							The result is 64:<br />
+							In binary: 1000 <--- 1000000
+						</span>
+					</pre>
+					<pre>C)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							byte number = -8;
+							int result = number >> 2;
+						</code>
+						<span class="fragment fade-in">
+							The result is -2:<br />
+							In binary: 11111111111111111111111111111000 --> 11111111111111111111111111111110
+						</span>
+					</pre>
+					<pre>D)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							byte number = -8;
+							int result = number >>> 2;
+						</code>
+						<span class="fragment fade-in">
+							The result is 1073741822:<br />
+							In binary: 11111111111111111111111111111000 --> __111111111111111111111111111110
+						</span>
+					</pre>
+				</blockquote>
+			</section>
+			<section>
+				<h4>Bitwise Operators</h4>
+				<blockquote>
+
+					What will be the result of following bit operations?
+
+					<pre>A)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							byte a = 21; // 00010101
+							byte b = 81; // 01010001
+							int result = a & b;
+						</code>
+						<span class="fragment fade-in">
+							The result is 17:<br />
+							In binary: 00010101 & 01010001 = 00010001
+						</span>
+					</pre>
+
+					<pre>B)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							byte a = 21; // 00010101
+							byte b = 81; // 01010001
+							int result = a | b;
+						</code>
+						<span class="fragment fade-in">
+							The result is 85:<br />
+							In binary: 00010101 & 01010001 = 01010101
+						</span>
+					</pre>
+
+					<pre>C)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							byte a = 21; // 00010101
+							byte b = 81; // 01010001
+							int result = a ^ b;
+						</code>
+						<span class="fragment fade-in">
+							The result is 68:<br />
+							In binary: 00010101 & 01010001 = 01000001
+						</span>
+					</pre>
+
+					<pre>D)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							byte a = 21; // 00010101
+							int result = ~a;
+						</code>
+						<span class="fragment fade-in">
+							The result is -22:<br />
+							In binary: 00010101 -> 11101010
+						</span>
+					</pre>
+				</blockquote>
+			</section>
+			<section>
+				<h3>Addition Assignment</h3>
+				<p>Combines assignment operators with arithmetic, shift and bitwise operators</p>
+				<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						int number = 0;
+
+						number += 3; // equivalent: number = number + 3
+
+						number -= 3; // equivalent: number = number - 3
+
+						number *= 3; // equivalent: number = number / 3
+
+						number /= 3; // equivalent: number = number * 3
+
+						number %= 3; // equivalent: number = number % 3
+
+						number |= 3; // equivalent: number = number | 3
+
+						number ^= 3; // equivalent: number = number ^ 3
+
+						number >>= 3; // equivalent: number = number >> 3
+
+						number <<= 3; // equivalent: number = number << 3
+					</code>
+				</pre>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Arrays</h2>
+			</section>
+			<section>
+				<h3>Arrays</h3>
+				<hr />
+				<p>
+					Arrays are used to store multiple values of the same type in one variable.
+					You can declare arrays of both primitive and non-primitive types.
+				</p>
+				<hr />
+				<p>
+					Arrays have a fixed size, which must be set during declaration.
+				</p>
+				<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						String[] languages = new String[4]; // will create array of 4 elements
+					</code>
+				</pre>
+				<p>You can change value of an array by its index (zero-based). If you try to assign value outside of array bound, you will get an error.</p>
+				<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						String[] languages = new String[4];
+						languages[0] = "Java";
+						languages[1] = "Python";
+						languages[2] = "C++";
+						languages[3] = "JavaScript";
+
+						// this will cause a runtime exception: Index 4 out of bounds for length 4
+						languages[4] = "Kotlin";
+					</code>
+				</pre>
+				<p>You can also declare an initialize array in one step</p>
+				<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						String[] languages = new String[] {"Java", "Python", "C++", "JavaScript"};
+
+						// or just
+						String[] languages = {"Java", "Python", "C++", "JavaScript"};
+					</code>
+				</pre>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Conditions</h2>
+				<h3>control flow statements</h3>
+			</section>
+			<section>
+				<h3>if ... else if ... else</h3>
+				<div style="text-align: left">
+					You can write just simple if <b>if</b>
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							if (a <= b) {
+								// execute if condition is met
+
+							}
+						</code>
+					</pre>
+
+					<b>else</b> branch is not required but it is highly recommendable
+					<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						if (a <= b) {
+							// execute if condition is met
+
+						} else {
+							// execute if condition is NOT met
+
+						}
+					</code>
+				</pre>
+
+					You can also evaluate multiple conditions with <b>else if</b>
+					<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						if (a < b) {
+							// execute if first condition is met
+
+						} else if (a == b) {
+							// execute if second condition is met
+
+						} else if (a == null) {
+							// execute if third condition is met
+
+						} else {
+							// execute if no condition is NOT met
+
+						}
+					</code>
+				</pre>
+				</div>
+			</section>
+			<section>
+				<h3>Ternary Operator</h3>
+				<div style="text-align: left;">
+					<p>
+						Java supports ternary operator as a shorthand for if else, which can come in handy when conditionally assigning values.
+						<br />
+						It is less code, but it also helps us avoid variable mutation, thus limiting the chance of error.
+					</p>
+					<pre>variable = (condition) ? expressionTrue :  expressionFalse;</pre>
+					<br />
+					Consider this code:
+					<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						long temperature = 33;
+						String clothes = null;
+
+						if (temperature > 20) {
+							clothes = "T-Shirt";
+						} else {
+							clothes = "Sweater";
+						}
+					</code>
+				</pre>
+					You can write the same thing in shortened form
+					<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						if (temperature > 20) clothes = "T-Shirt"; clothes = "Sweater";
+					</code>
+				</pre>
+					Or it can be written using ternary operator like so:
+					<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						String clothes = temperature > 20 ? "T-Shirt" : "Sweater";
+					</code>
+				</pre>
+				</div>
+			</section>
+			<section>
+				<h3>switch</h3>
+				<div style="text-align: left">
+					<p>
+						The switch operator is generally used in place of multiple <b>if ... else if ... else</b> statements.
+						It provides better code readability.
+					</p>
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							switch (direction) {
+								case 1 -> System.out.println("North");
+								case 2 -> System.out.println("East");
+								case 3 -> System.out.println("South");
+								case 4 -> System.out.println("West");
+							}
+						</code>
+					</pre>
+					You can also return a value from switch
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							String value = switch (direction) {
+								case 1 -> "North";
+								case 2 -> "East";
+								case 3 -> "South";
+								case 4 -> "West";
+								default -> "Invalid direction";
+							};
+						</code>
+					</pre>
+					Note that this is an enhanced switch syntax, which was introduced in Java 13.
+				</div>
+			</section>
+			<section>
+				<h4>switch</h4>
+				<div style="text-align: left">
+					<p>
+						Prior to Java 13, switch statement would be written like this:
+					</p>
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							switch (direction) {
+								case 1:
+									System.out.println("North");
+									break;
+								case 2:
+									System.out.println("East");
+									break;
+								case 3:
+									System.out.println("South");
+									break;
+								case 4:
+									System.out.println("West");
+									break;
+							}
+						</code>
+					</pre>
+					You exit switch by <b>break</b> statement, but you can also do so by <b>return</b>.<br />
+					The <b>default</b> keyword specifies a branch to run when there is no case match.
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							switch (direction) {
+								case 1:
+									return "North";
+								case 2:
+									return "East";
+								case 3:
+									return "South";
+								case 4:
+									return "West";
+								default:
+									return null;
+							}
+						</code>
+					</pre>
+				</div>
+			</section>
+			<section>
+				<h3>While Loop / Do While Loop</h3>
+				<p>The <b>while</b> evaluates condition at the beginning of the loop block, before any code is executed.</p>
+				<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						while (condition) {
+						  // code block to be executed
+						}
+					</code>
+				</pre>
+				<p>The <b>do while</b> first executes code block once, and evaluates condition the condition.</p>
+				<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						do {
+						  // code block to be executed
+						} while (condition);
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h4>While Loop / Do While Loop</h4>
+				<blockquote>
+					How may times will "Ahoy!" be printed?
+					<pre>A)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							int counter = 10;
+
+							while (counter < 10) {
+								System.out.println("Ahoy!");
+								counter++;
+							}
+						</code>
+						<span class="fragment fade-in">0 - it will never be printed</span>
+					</pre>
+					<pre>B)
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							int counter = 10;
+
+							do {
+								System.out.println("Ahoy!");
+								counter++;
+							} while (counter < 10);
+						</code>
+						<span class="fragment fade-in">1 - once</span>
+					</pre>
+				</blockquote>
+			</section>
+			<section>
+				<h3>For Loop</h3>
+				<div style="text-align: left;">
+					<p>For loop executes a block for a given number of iterations. The evaluation of for loop is decided into 3 statements:</p>
+					<ul>
+						<li><b>init</b> statement is executed once before the execution of the code block</li>
+						<li><b>condition</b> statement defines the condition for executing the code block</li>
+						<li><b>after</b> statement is executed every time after the code block has been executed</li>
+					</ul>
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							for (init; condition; after) {
+							  // code to be executed
+							}
+						</code>
+					</pre>
+					<p>
+						This would be an example of executing code in a loop 10 times, where the loop is controlled by
+						variable i with initial value of 0, incremented by 1 each time the loop is executed until the
+						condition of i < 10 is no longer true.
+					</p>
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							for (int i = 0; i < 10; i++) {
+							  // code to be executed
+							}
+						</code>
+					</pre>
+					<p>You can also nest loops.</p>
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							for (int i = 0; i < 10; i++) {
+								for (int j = 0; j < 3; j++) {
+									// code to be executed
+								}
+							}
+						</code>
+					</pre>
+				</div>
+			</section>
+			<section>
+				<h4>For Loop</h4>
+				<blockquote>
+					How many times will this loop execute and what will be the values printed?
+					<pre>
+							<code data-line-numbers data-trim data-noescape class="hljs java">
+								for (int i = 1; i < 10; i = i * 2) {
+
+									System.out.println(i);
+
+								}
+							</code>
+						</pre>
+					<div class="fragment fade-in">
+						4 times. Values printed will be 1, 2, 4, and 8.
+					</div>
+				</blockquote>
+			</section>
+			<section>
+				<h4>For Each Loop</h4>
+				<div style="text-align: left;">
+					<p>If you have an array, can iterate it using for loop.</p>
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							String[] languages = {"Java", "Python", "C++", "JavaScript"};
+
+							for (int i = 0; i < languages.length; i++) {
+
+								System.out.println(languages[i]);
+
+							}
+						</code>
+					</pre>
+					<p>You can also use more convenient <b>for each</b> loop.</p>
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							String[] languages = {"Java", "Python", "C++", "JavaScript"};
+
+							for (String language : languages) {
+
+								System.out.println(language);
+
+							}
+						</code>
+					</pre>
+				</div>
+			</section>
+			<section>
+				<h4>Break / Continue</h4>
+				<div style="text-align: left;">
+					<p>The <b>break</b> statement is used to end the loop immediately.</p>
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							for (int i = 0; i < x; i++) {
+
+								if (breakCondition) {
+									break;
+								}
+
+							}
+							// if breakCondition was met, the loop will end
+						</code>
+					</pre>
+					<p>The <b>continue</b> statement is end current iteration, but the loop will continue with next iteration.</p>
+					<pre>
+						<code data-line-numbers data-trim data-noescape class="hljs java">
+							for (int i = 0; i < x; i++) {
+
+								if (continueCondition) {
+									continue;
+								}
+
+								// if continueCondition was met, this code will not be executed
+							}
+						</code>
+					</pre>
+				</div>
+			</section>
+			<section>
+				<h4>Break / Continue</h4>
+				<blockquote>
+					What values will be printed?
+					<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						int maxValue = 10;
+						int significantValue = 7;
+
+						for (int i = 0; i < maxValue; i++) {
+
+							if (i == significantValue) {
+								break;
+							}
+
+							System.out.println(i);
+						}
+					</code>
+					<span class="fragment fade-in">
+						1, 2, 3, 4, 5, 6, 7
+					</span>
+				</pre>
+					<pre>
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						int maxValue = 10;
+						int significantValue = 7;
+
+						for (int i = 0; i < maxValue; i++) {
+
+							if (i == significantValue) {
+								continue;
+							}
+
+							System.out.println(i);
+						}
+					</code>
+					<span class="fragment fade-in">
+						1, 2, 3, 4, 5, 6, 8, 9
+					</span>
+				</pre>
+				</blockquote>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Working with Strings</h2>
+			</section>
+			<section>
+				<h3>Working with Strings</h3>
+				<pre>StringsExample.java
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						System.out.println("Printing to console with new line at the end");
+
+						System.out.print("Printing to console without new line at the end");
+						System.out.println(); // just new line
+
+						String name = "Moni";
+						String greeting = "Hello " + name + "!"; // String concatenation
+						System.out.println(greeting);
+
+						String greeting2 = "Hola";
+						greeting2 += " " + name + "!"; // Assignment addition String concatenation
+						System.out.println(greeting2);
+
+						String hello = "Hello";
+						String formattedGreeting = String.format("%s %s!", hello, name); // String formatting
+						System.out.println(formattedGreeting);
+
+						String fullGreeting = hello.concat(" ").concat(name); // String concatenation
+						System.out.println(fullGreeting);
+
+						String[] words = {"Greetings", "Monika"};
+						String joinedWords = String.join(" ", words).concat("!"); // Joining strings
+						System.out.println(joinedWords);
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h4>Working with Strings</h4>
+				<pre>StringsExample.java
+					<code data-line-numbers data-trim data-noescape class="hljs java">
+						String text = "Banana, Apple, Orange, Kiwi, Mango, Pineapple, Watermelon, Strawberry";
+
+						System.out.println("Length: " + text.length());
+
+						String[] fruits = text.split(",");
+						for (String fruit : fruits) {
+							System.out.println(fruit.trim()); // trim to remove leading ot trailing space
+						}
+
+						System.out.println("Has apple: " + text.contains("Apple"));
+
+						System.out.println(text.toUpperCase());
+
+						System.out.println(text.toLowerCase());
+
+						System.out.println(text.substring(10, 20));
+
+						String newText = text.replace("Apple", "Peach");
+        				System.out.println(newText);
+					</code>
+				</pre>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Integrated Development Environment (IDE)</h2>
+			</section>
+			<section>
+				<h3>What is Integrated Development Environment (IDE)</h3>
+				<p>
+					Being able to efficiently use an IDE is just as important as being able to write code.<br />
+					Gives you a set of tools that you need as a developer.
+				</p>
+				<ul>
+					<li>Provides code editor with syntax highlighting</li>
+					<li>Easy ways for manage our code, project and builds</li>
+					<li>
+						Helps your productivity
+						<div>
+							<em>contextual suggestions</em>,
+							<em>autocomplete</em>,
+							<em>code navigation</em>,
+							<em>refactoring</em>,
+							<em>language tip</em>
+						</div>
+					</li>
+					<li>
+						Helps you avoid some errors in your programs
+						<div>
+							<em>can warn you about problematic code</em><br />
+							<em>gives you tools inspect your code</em><br />
+							<em>gives you tools test your code</em>
+						</div>
+					</li>
+					<li>Integrates tools
+						<div>
+							<em>source code management, such as git</em><br />
+							<em>database clients</em><br />
+							<em>documentation</em><br />
+							<em>project management tools</em><br />
+							<em>AI</em>
+						</div>
+					</li>
+					<li>Usually has a community led plugin ecosystem</li>
+				</ul>
+			</section>
+			<!--			<section>-->
+			<!--				<h3>Popular Java IDEs</h3>-->
+			<!--				<h2>IntelliJ IDEA</h2>-->
+			<!--				<p>We will be working with <b>IntelliJ IDEA</b>, which is a very popular and very powerful IDE.</p>-->
+			<!--				<p>NetBeans</p>-->
+			<!--				<p>Eclipse</p>-->
+			<!--			</section>-->
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h3>Your first Java program</h3>
+				<h2>Let's write some code!</h2>
+			</section>
+		</section>
+	</div>
+</div>
+
+<script src="./dist/reveal.js"></script>
+<script src="./plugin/notes/notes.js"></script>
+<script src="./plugin/markdown/markdown.js"></script>
+<script src="./plugin/highlight/highlight.js"></script>
+<script>
+	// More info about initialization & config:
+	// - https://revealjs.com/initialization/
+	// - https://revealjs.com/config/
+	Reveal.initialize({
+		hash: true,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+	});
+
+	Reveal.configure({ showNotes: false });
+</script>
+</body>
+</html>

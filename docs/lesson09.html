@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/motyka.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/vs.css">
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<section data-background-color="#523996">
+			<i>Week 2 | Lesson 9</i>
+			<h1>The SOLID Principle</h1>
+			<em>Object Oriented Design Patterns</em><br />
+			<em>Functional programming principles</em><br />
+			<em>Generics</em>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>The SOLID Principle</h2>
+			</section>
+			<section>
+				<h3>The SOLID Principle</h3>
+				<p>
+					The <strong>SOLID</strong> principle is a set of five principles that help us write better code,
+					making it more maintainable, readable, and easier to upgrade and modify.
+				</p>
+				<p>
+					These principles are not specific to Java, but they are applicable to any object-oriented language.
+				</p>
+				<p>
+					The <strong>SOLID</strong> principle is an acronym for the following:
+				</p>
+				<ul>
+					<li><strong>S</strong>ingle Responsibility Principle</li>
+					<li><strong>O</strong>pen/Closed Principle</li>
+					<li><strong>L</strong>iskov Substitution Principle</li>
+					<li><strong>I</strong>nterface Segregation Principle</li>
+					<li><strong>D</strong>ependency Inversion Principle</li>
+				</ul>
+			</section>
+			<section>
+				<h4>Single Responsibility Principle</h4>
+				<hr />
+				<p>
+					<em>
+						Each class should have a single responsibility or reason to change.
+						This helps to build a system that is better defined, modular, and easier to maintain.
+					</em>
+				</p>
+				<hr />
+				<p>
+					We have seed this principle applied when we talked about encapsulation. Also, you will
+					find that if this principle is applied correctly, your code will be much easier to test.
+				</p>
+			</section>
+			<section>
+				<h4>Open/Closed Principle</h4>
+				<hr />
+				<p>
+					<em>
+						Software entities (classes, modules, functions, etc.) should be open for extension but closed for modification.
+						This prevents issues introduced by changes to existing code.
+					</em>
+				</p>
+				<hr />
+				<ul style="font-size: 80%">
+					<li>
+						<strong>Open for extension</strong><br />
+						means that the class should be designed in such a way that
+						it can be extended to perform new things.
+						<br />
+						<br />
+						Example of this would be extending class with methods to handle new requirements without modifying the existing ones.</sub>
+					</li>
+					<li>
+						<strong>Closed for modification</strong><br />
+						means that once the class has been developed and tested, the code behavior must not change.
+						<br />
+						<br />
+						Example of this would be that the class should not be modified to handle new requirements,<br />
+						but rather extended, as explained above.
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h4>Liskov Substitution Principle</h4>
+				<hr />
+				<p>
+					<em>
+						<!--					This is a specific definition of a kind of substitutability on strong behavioral subtyping.-->
+						<!--					It indicates that one should be able to use any derived class instead of a parent class and have it behave in the same manner without modification.-->
+						One should be able to use any derived class instead of a parent class and have it behave in the same manner without modification.
+					</em>
+				</p>
+				<hr />
+				<p>
+					We have already seen the Liskov principle applied when we worked with inheritance, abstract classes and interfaces.
+				</p>
+			</section>
+			<section>
+				<h4>Interface Segregation Principle</h4>
+				<hr />
+				<p>
+					<em>
+						Many specific client-specific interfaces are better than one general-purpose interface.
+						This means that you should not impose the clients with interfaces that they don't use.
+					</em>
+				</p>
+				<hr />
+				<p>
+					Imagine you have a class that represents a printer.
+					You could have the class implement one interface with methods print(), scan(), etc.
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						interface Printer {
+							void print();
+							void scan();
+						}
+
+						class SimplePrinter implements Printer {}
+						class MultiPrinter implements Printer {}
+					</code>
+				</pre>
+				<p>
+					Or you could have the class implement multiple interfaces, each with a single method.
+					<!--						<br />-->
+					<!--						<br />-->
+					<!--						Simply put, don't clutter your code with stuff you won't use.-->
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						interface Printing {
+							void print();
+						}
+
+						interface Scanning {
+							void scan();
+						}
+
+						class SimplePrinter implements Printing {}
+						class MultiPrinter implements Printing, Scanning {}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h4>Dependency Inversion Principle</h4>
+				<hr />
+				<p>
+					<em>
+						One should depend upon abstractions, rather than concrete implementations.
+						This way, modules can remain decoupled, leading to systems that are easier to refactor, change, and deploy.
+					</em>
+				</p>
+				<hr />
+				<p>
+					This is commonly demonstrated when working with collections.
+					We will also see how this is helpful once we start developing applications using Inversion of Control.
+				</p>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Inversion of Control</h2>
+			</section>
+			<section>
+				<h3>Inversion of Control (IoC)</h3>
+				<p>
+					Inversion of Control is a principle in software engineering by which the control is transferred
+					from higher-level components to the lower-level components
+				</p>
+				<p>
+					This allows the higher-level and lower-level components to focus on their functionalities,
+					promotes better decoupling, more flexibility, and easier maintenance.
+				</p>
+			</section>
+			<section>
+				<h3>Dependency Injection</h3>
+				<p>
+					Dependency Injection is a design pattern that implements IoC.
+					It allows us to inject dependencies into a class, rather than creating them inside the class.
+				</p>
+				<p>
+					There are three types of dependency injection:
+				</p>
+				<ul>
+					<li>Constructor Injection</li>
+					<li>Setter Injection</li>
+					<li>Interface Injection</li>
+				</ul>
+			</section>
+			<section>
+				<h4>Without Injection</h4>
+				<em>
+					This example is not using dependency injection. The Car class is tightly coupled with the ElectricEngine class.
+				</em>
+				<div class="row">
+					<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class NoInjectionExample {
+
+							public static void main(String[] args) {
+								Car car = new Car();
+								car.start();
+								car.stop();
+							}
+
+						}
+					</code>
+					</pre>
+					<div class="column">
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								public interface Engine {
+									void on();
+									void off();
+								}
+							</code>
+						</pre>
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								public class ElectricEngine implements Engine {
+
+									@Override
+									public void on() {
+										System.out.println("Diesel engine started");
+									}
+
+									@Override
+									public void off() {
+										System.out.println("Diesel engine stopped");
+									}
+								}
+							</code>
+						</pre>
+					</div>
+					<div class="column">
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								public class Car {
+
+									// dependency is hardcoded
+									private Engine engine = new ElectricEngine();
+
+									void start() {
+										engine.on();
+									}
+
+									void stop() {
+										engine.off();
+									}
+
+								}
+							</code>
+						</pre>
+					</div>
+				</div>
+			</section>
+			<section>
+				<h4>Constructor Injection</h4>
+				<em>
+					This example is using constructor injection. The Engine dependency is injected into the Car class through its constructor.
+				</em>
+				<div class="row">
+					<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class ConstructorInjectionExample {
+
+							public static void main(String[] args) {
+								// First, we need to create an instance of the dependency
+								Engine engine = new ElectricEngine();
+								// Then we inject the dependency via constructor
+								Car car = new Car(engine);
+								car.start();
+								car.stop();
+							}
+
+						}
+					</code>
+					</pre>
+					<div class="column">
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								public interface Engine {
+									void on();
+									void off();
+								}
+							</code>
+						</pre>
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								public class ElectricEngine implements Engine {
+
+									@Override
+									public void on() {
+										System.out.println("Diesel engine started");
+									}
+
+									@Override
+									public void off() {
+										System.out.println("Diesel engine stopped");
+									}
+								}
+							</code>
+						</pre>
+					</div>
+					<div class="column">
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								public class Car {
+
+									private final Engine engine;
+
+									// dependency is injected via constructor
+									Car(Engine engine) {
+										this.engine = engine;
+									}
+
+									void start() {
+										engine.on();
+									}
+
+									void stop() {
+										engine.off();
+									}
+
+								}
+							</code>
+						</pre>
+					</div>
+				</div>
+			</section>
+			<section>
+				<h4>Setter Injection</h4>
+				<em>
+					This example is using setter injection. The Engine dependency is injected into the Car class through its setter.
+				</em>
+				<div class="row">
+					<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class SetterInjectionExample {
+
+							public static void main(String[] args) {
+								// First, we need to create an instance of the dependency
+								Engine engine = new ElectricEngine();
+								// Then we create an instance of the class that has the dependency
+								Car car = new Car();
+								// Then we inject the dependency via setter
+								car.setEngine(engine);
+								car.start();
+								car.stop();
+							}
+
+						}
+					</code>
+					</pre>
+					<div class="column">
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								public interface Engine {
+									void on();
+									void off();
+								}
+							</code>
+						</pre>
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								public class ElectricEngine implements Engine {
+
+									@Override
+									public void on() {
+										System.out.println("Diesel engine started");
+									}
+
+									@Override
+									public void off() {
+										System.out.println("Diesel engine stopped");
+									}
+								}
+							</code>
+						</pre>
+					</div>
+					<div class="column">
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								public class Car {
+
+									private Engine engine;
+
+									// dependency is injected via setter
+									void setEngine(Engine engine) {
+										this.engine = engine;
+									}
+
+									void start() {
+										engine.on();
+									}
+
+									void stop() {
+										engine.off();
+									}
+
+								}
+							</code>
+						</pre>
+					</div>
+				</div>
+			</section>
+			<section>
+				<h4>Interface Injection</h4>
+				<em>
+					This is just conceptual example fo interface injection.
+					For it to work you need to have some kind of an injector that will inject the dependency into the class that implements the interface.
+					<br />
+					<br />
+					Application frameworks usually provide such injector for us.
+				</em>
+				<pre>
+				<code data-trim data-noescape data-line-numbers class="hljs java">
+					@Component
+					public class MyApplication {
+
+						private MessageService service;
+
+						@Autowired
+						public void setService(MessageService service){
+							this.service = service;
+						}
+					}
+				</code>
+				</pre>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public interface MessageService {
+
+							void sendMessage(String msg, String rec);
+
+						}
+					</code>
+				</pre>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						@Service
+						public class EmailService implements MessageService {
+
+							@Override
+							public void sendMessage(String msg, String rec) {
+								// Logic to send email
+								System.out.println("Email sent to " + rec + " with Message=" + msg);
+							}
+						}
+					</code>
+				</pre>
+			</section>
+		</section>
+
+		<section>
+			<section data-background-color="#523996">
+				<h2>Generics</h2>
+			</section>
+			<section>
+				<h3>Generics</h3>
+				<p>
+					Generics allow us to create classes, interfaces, and methods that take types as parameters.
+				</p>
+				<p>
+					They are a way to make our code more reusable by allowing us to use the same code with different types.
+				</p>
+			</section>
+			<section>
+				<h3>Generics</h3>
+				<p>
+					In this example, we define a LinkedList, and add an element to it.
+					The compiler will not complain about this, at this point, it knows we are adding a String to the list.
+				</p>
+				<p>
+					However, when we try to get the element from the list, the compiler will complain,
+					because it doesn't know what type of element is in the list.
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class GenericsExample {
+
+							public static void main(String[] args) {
+
+								List list = new LinkedList();
+								list.add("Hello World");
+
+								String str = list.get(0); // compiler will complain about this
+							}
+
+						}
+					</code>
+				</pre>
+				<p>
+					To fix this, we can tell the compiler what type of elements are in the list.
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class GenericsExample {
+
+							public static void main(String[] args) {
+
+								List&lt;String&gt; list = new LinkedList<>();
+								list.add("Hello World");
+
+								String str = list.get(0); // this is OK
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>How to Define Generics</h3>
+				<p>
+					To use generics, we need to define them in the class or interface declaration.
+					This is done by using angle brackets and the type parameter name, in this case, <code>T</code>.
+				</p>
+				<p>
+					We can then use the type parameter with attributes, methods, and constructors.
+				</p>
+				<div class="row">
+					<div class="column">
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								class MyClass&lt;T&gt; {
+
+									private final T id;
+
+									public MyClass(T id) {
+										this.id = id;
+									}
+
+									public T getId() {
+										return id;
+									}
+
+								}
+							</code>
+						</pre>
+					</div>
+					<div class="column">
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								public class GenericsExample {
+
+									public static void main(String[] args) {
+
+										MyClass&lt;String&gt; myClass1 = new MyClass<>("ABC");
+										System.out.println(myClass1.getId());
+
+										MyClass&lt;Integer&gt; myClass2 = new MyClass<>(123);
+										System.out.println(myClass2.getId());
+
+									}
+
+								}
+							</code>
+						</pre>
+					</div>
+				</div>
+				<sub>
+					We can use any name for the type parameter, but it is common to use single uppercase letters.
+				</sub>
+			</section>
+			<section>
+
+				<h4>Generics</h4>
+				<p>
+					Here is an example with multiple types ...
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						class MyClassEnhanced&lt;T1, T2&gt; {
+
+							public Boolean equals(T1 value1, T2 value2) {
+								return value1 == value2;
+							}
+
+						}
+					</code>
+				</pre>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class GenericsExample {
+
+							public static void main(String[] args) {
+
+								MyClassEnhanced&lt;Integer, Double&gt; myClassEnhanced = new MyClassEnhanced<>();
+								System.out.println(myClassEnhanced.equals(123, 123.0));
+
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Functional Programming</h2>
+			</section>
+			<section>
+				<h3>Functional Programming</h3>
+				<em>In Java</em>
+				<hr />
+				<p>
+					So far, we have been using <strong>imperative programming</strong> style.
+					The imperative style is characterized by explicit statements that change a program's state.
+				</p>
+				<hr />
+				<p>
+					<strong>Functional programming </strong> is a programming paradigm where programs are constructed by applying and composing functions.
+					It emphasizes the use of pure functions that avoid changing state and mutable data.
+				</p>
+				<p>
+					<strong>Pure function</strong> is a function where the return value is only determined by its input values, without observable side effects.
+				</p>
+				<p>
+					<strong>Side effects</strong> are changes in the state of the program that are observable outside the called function other than the return value.
+				</p>
+				<hr />
+				<p>
+					In Java, functional programming is supported starting from <strong>Java 8</strong> onwards with the
+					introduction of Lambda Expressions and the Stream API.
+				</p>
+			</section>
+			<section>
+				<h3>Principles of functional programming</h3>
+				<ul style="font-size: 80%">
+					<li>
+						<strong>Immutability</strong>
+						<ul>
+							<li>Once an object is created, it cannot be changed.</li>
+							<li>Instead of changing the object, a new object is created with the new value.</li>
+						</ul>
+					</li>
+					<li>
+						<strong>Pure functions</strong>
+						<ul>
+							<li>Functions that always return the same result for the same input.</li>
+							<li>They do not produce or rely on side effects.</li>
+						</ul>
+					</li>
+					<li>
+						<strong>First-class functions</strong>
+						<ul>
+							<li>Functions are treated as first-class citizens, meaning they can be passed as arguments to other functions, returned as values from other functions, and assigned to variables.</li>
+						</ul>
+					</li>
+					<li>
+						<strong>Higher-order functions</strong>
+						<ul>
+							<li>Functions that take other functions as arguments or return them as results.</li>
+						</ul>
+					</li>
+					<li>
+						<strong>Referential transparency</strong>
+						<ul>
+							<li>It means that a function will always return the same result for the same input.</li>
+							<li>This means that the function call can be replaced with its corresponding value without changing the program’s behavior.</li>
+
+						</ul>
+					</li>
+					<li>
+						There may be other principles mentioned such as <strong>Recursion</strong> or <strong>Functional composition</strong>
+					</li>
+				</ul>
+
+			</section>
+			<section>
+				<h4>Functional Programming</h4>
+				<em>
+					Example of a pure function and a function with side effects.
+				</em>
+				<hr />
+				<br />
+				<p>
+					Function with side effects ...
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						private static int counter = 0;
+
+						public static int unPureFunction(int increment) {
+							return counter += increment;
+						}
+					</code>
+				</pre>
+				<br />
+				<p>
+					Pure function ...
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public static int pureFunction(int counter, int increment) {
+							return counter + increment;
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Function as an argument</h3>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class FunctionAsArgumentExample {
+
+							public static void main(String[] args) {
+
+								Integer result = execute("Hello Function!", (input) -> {
+									// your code
+									System.out.println("Got input: " + input);
+									return input.length();
+								});
+
+								System.out.println(result);
+
+								Boolean result2 = execute("12.34", 12.34, (p1, p2) -> {
+									// your code
+									return Double.parseDouble(p1) == p2;
+								});
+
+								System.out.println(result2);
+
+							}
+
+							private static Integer execute(String input, Function<String, Integer> function) {
+								return function.apply(input);
+							}
+
+							private static Boolean execute(String input1, Double input2, BiFunction<String, Double, Boolean> function) {
+								return function.apply(input1, input2);
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Functional Interfaces</h3>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class FunctionalInterfaceExample {
+
+							public static void main(String[] args) {
+
+								Integer result = execute("Hello Function!", (input) -> {
+									System.out.println("Got input: " + input);
+									return input.length();
+								});
+
+								System.out.println(result);
+
+							}
+
+							private static Integer execute(String input, MyFunctionalInterface function) {
+								return function.execute(input);
+							}
+
+						}
+					</code>
+				</pre>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						@FunctionalInterface
+						interface MyFunctionalInterface {
+							Integer execute(String input);
+						}
+					</code>
+				</pre>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Design Patterns</h2>
+			</section>
+			<section>
+				<h3>Design Patterns</h3>
+				<hr />
+				<p>
+					In software engineering, a design pattern is a general repeatable solution to a commonly occurring
+					problem in software design. They are best practices that the programmer can use to solve common problems when designing an application or system.
+				</p>
+				<hr />
+				<p>As a simplification, we can divide design patterns into 3 categories ...</p>
+				<ul style="font-size: 80%">
+					<li>
+						<strong>Creational Design Patterns</strong>
+						deal with object creation mechanisms, helping with complexities of object creation and providing convenient ways to do so.
+						<br />
+						<sub>Builder Pattern, Singleton Pattern, Factory Pattern, Abstract Factory Pattern, Prototype Pattern ...</sub>
+						<br />
+						<br />
+					</li>
+					<li>
+						<strong>Structural Design Patterns</strong>
+						concern with composition of classes and objects which form larger structures.
+						<br />
+						<sub>Decorator Pattern, Adapter Pattern, Proxy Pattern, Composite Pattern, Bridge Pattern ...</sub>
+						<br />
+						<br />
+					</li>
+					<li>
+						<strong>Behavioral Design Patterns</strong>
+						are specifically concerned with communication between objects, how they interact, and distribute the work.
+						<br />
+						<sub>Observer Pattern, Strategy Pattern, Iterator Pattern, Command Pattern, Template Method Pattern ...</sub>
+					</li>
+				</ul>
+				<hr />
+				<p>
+					I will not go into detail, but I encourage you <a href="https://en.wikipedia.org/wiki/Software_design_pattern">to read about them</a>.
+				</p>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Practice</h2>
+			</section>
+		</section>
+	</div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+	// More info about initialization & config:
+	// - https://revealjs.com/initialization/
+	// - https://revealjs.com/config/
+	Reveal.initialize({
+		hash: true,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+	});
+</script>
+</body>
+</html>

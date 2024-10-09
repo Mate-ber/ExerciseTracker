@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/motyka.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/vs.css">
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<section data-background-color="#523996">
+			<i>Week 3 | Lesson 11</i>
+			<h1>Application Development</h1>
+			<em>Introduction to Spring Boot framework</em><br />
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Java Applications</h2>
+			</section>
+			<section>
+				<h3>Java Applications</h3>
+				<p>
+					Java is one of the most popular programming languages for <strong>WEB APPLICATION DEVELOPMENT</strong>.
+				</p>
+				<p>
+					It is because of its core features like platform independence, automatic memory management, garbage collection, and security,
+					which makes it suitable for building small or large scale enterprise applications that can run on any platform.
+				</p>
+				<hr />
+				<p>
+					A very common Java application is for developing so-called <strong>APPLICATION BACKENDS</strong>,<br />
+					<sub>
+						which are the server-side applications that power client-side applications, such as web applications,
+						mobile apps, and other web services, by providing business logic, database access, user authentication, and other services.
+					</sub>
+				</p>
+				<hr />
+				<p>
+					Client-side applications are usually developed using JavaScript, HTML,<br />
+					and CSS and are also called <strong>APPLICATION FRONTENDS</strong>.
+				</p>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Frameworks</h2>
+			</section>
+			<section>
+				<h3>Framework</h3>
+				<p>
+					When we talk about frameworks, we usually mean a collection of libraries and tools that help developers build applications in a faster and more productive way.
+				</p>
+				<hr />
+				<p>
+					For example, a framework can provide a set of libraries for ...
+				</p>
+				<ul>
+					<li>data access (databases)</li>
+					<li>security (user authorization and authentication)</li>
+					<li>network communication</li>
+					<li>configuration management</li>
+					<li>cloud integration</li>
+					<li>monitoring and logging</li>
+					<li>testing</li>
+				</ul>
+				<p>
+					... and other common tasks, so that developers don't have to write them from scratch.
+				</p>
+			</section>
+			<section>
+				<h4>Popular Java Frameworks</h4>
+				<!--				<p>-->
+				<!--					TODO-->
+				<!--				</p>-->
+				<ul>
+					<li>Spring Framework</li>
+					<li>Jakarta EE (formerly Java EE)</li>
+					<li>Hibernate</li>
+					<li>Play Framework</li>
+					<li>Apache Struts</li>
+					<li>Quarkus</li>
+					<li>MicroProfile</li>
+				</ul>
+			</section>
+		</section>
+
+		<section>
+			<section data-background-color="#523996">
+				<h2>Spring Framework</h2>
+			</section>
+			<section>
+				<h3>Spring Framework</h3>
+				<a href="https://spring.io/">Spring.io</a>
+				<hr />
+				<em>
+					Spring Framework is a whole ecosystem of tools and libraries for Java application development.
+				</em>
+				<hr />
+				<p>
+					The ecosystem includes Spring Boot, Spring Cloud, Spring Data, Spring Security, Spring Integration, Spring Batch,
+					and many other projects, that help developers deal with common application development tasks,
+					such as data access, security, messaging, and more.
+				</p>
+				<p>
+					Spring Framework relies on the <strong>Dependency Injection (DI)</strong> design pattern to achieve Inversion of Control (IoC).
+					This means, the responsibility of creating and managing the objects is shifted from the application code to the Spring Framework.
+				</p>
+				<hr />
+				<p>
+					It is open-source.
+				</p>
+			</section>
+
+			<section>
+				<h3>Spring Boot</h3>
+				<em>
+					Spring Boot is a project built on top of the Spring Framework.
+					It was designed to simplify the bootstrapping and development of new Spring applications.
+				</em>
+				<hr />
+				<p>
+					Here are some of the features of Spring Boot ...
+				</p>
+				<ul>
+					<li>
+						It can be run as a standalone application on variety of platforms.<br />
+						<sub>
+							<em>
+								There is no need for seprate web container. It bundles Tomcat, Jetty, or Undertow directly.
+							</em>
+						</sub>
+					</li>
+					<li>Externalized configuration and auto-configuration support, profiles</li>
+					<li>Production-ready features, logging, such as metrics, health checks</li>
+					<li>Web development support, REST, JSON, ...</li>
+					<li>Security features and configuration</li>
+					<li>Caching support</li>
+					<li>Messaging support</li>
+					<li>Testing support</li>
+				</ul>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Model-View-Controller</h2>
+			</section>
+			<section>
+				<h3>Model-View-Controller (MVC)</h3>
+				<p>
+					The Model-View-Controller (MVC) is a design pattern that separates an application into three main components:
+				</p>
+				<ul>
+					<li>
+						<strong>Model</strong><br />
+						represents the data and the business logic of the application
+					</li>
+					<li>
+						<strong>View</strong><br />
+						represents the user interface
+					</li>
+					<li>
+						<strong>Controller</strong><br />
+						handles the user input and updates the model and view
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Spring MVC</h3>
+				<p>
+					Spring Boot follows the MVC pattern, but implementation may be slightly different from the traditional
+					MVC frameworks because of its nature as a web application framework.
+				</p>
+				<hr />
+				<p>
+					For example, for RESTful applications written in Spring Boot,
+					the controller is responsible for handling the HTTP requests and returning the HTTP responses.
+					There is no user interface, so the view is often represented as a JSON or XML document.
+				</p>
+				<hr />
+				<p>
+					Spring Boot applications implementing RESTful services usually have this architecture:
+				</p>
+				<ul>
+					<li>
+						<strong>Controller</strong><br />
+						handles the HTTP requests and returns the HTTP responses
+					</li>
+					<li>
+						<strong>Service</strong><br />
+						contains the business logic
+					</li>
+					<li>
+						<strong>Repository</strong><br />
+						contains the data access logic
+					</li>
+				</ul>
+			</section>
+
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Spring Boot Application</h2>
+			</section>
+			<section>
+				<h3>Spring Boot Application</h3>
+				<em>
+					Spring Boot application consists of a main class and a set of beans.
+					It is independently deployable, and it can be run as a standalone application.
+				</em>
+				<hr />
+				<p>
+					Spring Boot is <strong>annotation-driven</strong>,
+					which means annotations are used to manage configurations and define so-called <strong>beans</strong>.
+				</p>
+				<p>
+					<strong>Bean</strong> is an object that is managed by the Spring IoC container.
+				</p>
+				<p>
+					<strong>Controller</strong>, <strong>Service</strong> and <strong>Repository</strong> are actually all different types of beans.
+				</p>
+			</section>
+			<section>
+				<h4>Spring Boot Application</h4>
+				<p>
+					A basic Spring Boot application main class will look like this
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers="|1|4-6|" class="hljs java">
+						@SpringBootApplication
+						public class Application {
+
+							public static void main(String[] args) {
+								SpringApplication.run(Application.class, args);
+							}
+
+						}
+					</code>
+				</pre>
+				<p>
+					The <code class="inline">@SpringBootApplication</code> annotation is used to mark the class as the main class of the Spring Boot application.
+				</p>
+				<p>
+					The main method is used to start the application by calling the <code class="inline">SpringApplication.run</code> method with the main class and argument.
+				</p>
+				<p>
+					The application class may optionally contain other annotations, such as <code class="inline">@ComponentScan</code>,
+					<code class="inline">@EnableAutoConfiguration</code>, and <code class="inline">@Configuration</code>,
+					which are used to further configure the application.
+				</p>
+			</section>
+
+			<section>
+				<h3>Bean</h3>
+				<em>@Bean</em>
+				<div style="font-size: 90%">
+					<p>
+						Bean is an object that is managed by the Spring IoC container. By defining a bean,
+						we are telling the Spring container to create an instance of the bean and manage its lifecycle.
+					</p>
+					<p>
+						To define a bean, you simply need to annotate a method with the <code class="inline">@Bean</code> annotation.
+					</p>
+					<div class="row">
+					<pre>User Bean defined in UserComponent
+						<code data-trim data-noescape data-line-numbers class="hljs java">
+							@Component // or @Configuration
+							class UserComponent {
+
+								@Bean
+								public User user() {
+									return new User("Monika");
+								}
+
+							}
+						</code>
+					</pre>
+						The bean is then available for dependency injection in other parts of the application.
+						<div class="column">
+						<pre>Injection by constructor (preferred)
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								@Component
+								class HigherLevelComponent {
+
+									private final User user;
+
+									public HigherLevelComponent(User user) {
+										this.user = user;
+									}
+
+									public void doSomething() {
+										// do something with user
+									}
+
+								}
+							</code>
+						</pre>
+						</div>
+						<div class="column">
+						<pre>Injection by @Autowired annotation
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								@Component
+								class HigherLevelComponent {
+
+									@Autowired
+									private User user;
+
+									public void doSomething() {
+										// do something with user
+									}
+
+								}
+							</code>
+						</pre>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section>
+				<h3>Controller</h3>
+				<em>@Controller, @RestController</em>
+				<p>
+					Annotating a class with <code class="inline">@Controller</code> or <code class="inline">@RestController</code> makes it a controller
+					that handles the HTTP requests and returns the HTTP responses.
+				</p>
+				<p>
+					In this example, the <code class="inline">HelloController</code> class handles the HTTP GET request to the
+					<code class="inline">/hello</code> endpoint and returns the string "Hello World!".
+				</p>
+				<pre>HelloController.java
+					<code data-trim data-noescape data-line-numbers="|1,2|5-9|11-17|" class="hljs java">
+						@RestController
+						@RequestMapping("/api")
+						class HelloController {
+
+							private final HelloService helloService;
+
+							public HelloController(HelloService helloService) {
+								this.helloService = helloService;
+							}
+
+							@RequestMapping("/hello")
+							public String getHelloWorld(
+									@RequestParam(value = "name") String name,
+									@RequestParam(value = "locale") String locale
+							) {
+								return helloService.sayHello(name, locale);
+							}
+
+						}
+					</code>
+				</pre>
+				<sub>
+					<code class="inline">@RestController</code> is actually just a combination of
+					<code class="inline">@Controller</code> and
+					<code class="inline">@ResponseBody</code> annotations.
+				</sub>
+			</section>
+
+			<section>
+				<h3>Service</h3>
+				<em>@Service</em>
+				<p>
+					Annotating a class with <code class="inline">@Service</code> makes it an injectable bean.
+					The service layer should contain the business logic of the application.
+				</p>
+				<pre>HelloService.java
+					<code data-trim data-noescape data-line-numbers="|1|4-8|10-13|" class="hljs java">
+						@Service
+						public class HelloService {
+
+							private final HelloRepository helloRepository;
+
+							public HelloService(HelloRepository helloRepository) {
+								this.helloRepository = helloRepository;
+							}
+
+							public String sayHello(String name, String locale) {
+								String hello = helloRepository.selectHelloInLanguage(locale);
+								return String.format("%s %s!", hello, name);
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<h3>Repository</h3>
+				<em>@Repository</em>
+				<p>
+					Annotation a class with <code class="inline">@Repository</code> makes it an injectable bean.
+					The repository layer should contain the data access logic.
+				</p>
+				<pre>HelloRepository.java
+					<code data-trim data-noescape data-line-numbers="|1|4-8|1-16|" class="hljs java">
+						@Repository
+						public class HelloRepository {
+
+							protected final JdbcTemplate jdbcTemplate;
+
+							public HelloRepository(JdbcTemplate jdbcTemplate) {
+								this.jdbcTemplate = jdbcTemplate;
+							}
+
+							public String selectHelloInLanguage(String locale) {
+								return jdbcTemplate.queryForObject(
+										"SELECT message_value FROM i18n WHERE locale = ? AND message_key = 'hello' LIMIT 1",
+										new Object[]{locale},
+										String.class
+								);
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<h3>Configuration</h3>
+				<em>@Configuration</em>
+				<p>
+					Annotation a class with <code class="inline">@Configuration</code> makes it a configuration class that contains the configuration logic.
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						@Configuration
+						public class HelloConfiguration {
+
+							@Bean
+							public RestTemplate restTemplate() {
+								return new RestTemplate();
+							}
+
+							@Bean
+							public MyBean myBean() {
+								// ... any custom configuration
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Testing</h2>
+			</section>
+			<section>
+				<h3>Testing</h3>
+				<p>
+					Spring Boot also provides support for testing the application on each of the layers (controller, service, and repository).
+				</p>
+				<p>
+					We will cover testing of Controllers, Services and repositories in detail in the next lesson.
+				</p>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Final Project Introduction</h2>
+			</section>
+		</section>
+	</div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+	// More info about initialization & config:
+	// - https://revealjs.com/initialization/
+	// - https://revealjs.com/config/
+	Reveal.initialize({
+		hash: true,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+	});
+</script>
+</body>
+</html>

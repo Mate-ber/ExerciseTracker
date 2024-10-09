@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/motyka.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/vs.css">
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<section data-background-color="#523996">
+			<i>Week 3 | Lesson 12</i>
+			<h1>Spring Boot Application</h1>
+			<em>Controller Layer (REST)</em><br />
+			<em>Service Layer</em><br />
+			<em>Testing</em><br />
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Project Structure</h2>
+			</section>
+			<section>
+				<h3>Project Structure</h3>
+				<p>
+					Our project structure is based on the MVC pattern, where we have the controller layer, the service layer, and the repository layer.
+				</p>
+				<ul>
+					<li>
+						The <strong>controller layer</strong> is responsible for handling the HTTP requests and returning the HTTP responses.
+					</li>
+					<li>
+						The <strong>service layer</strong> is responsible for handling the business logic, making calls to the repository layer, and returning the results to the controller layer.
+					</li>
+					<li>
+						The <strong>repository layer</strong> is responsible for managing the data access logic and performing CRUD operations on the database.
+					</li>
+				</ul>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Testing</h2>
+			</section>
+			<section>
+				<h3>Testing</h3>
+				<p>
+					Spring Boot also provides support for testing the application on each of the layers (controller, service, and repository).
+				</p>
+				<hr />
+				<p>
+					Testing each layer separately helps to make sure good separation of concerns and to make sure that each layer works as expected.
+				</p>
+				<p>
+					It is also good, however, to test the application as a whole, to make sure that all the layers work together as expected.
+				</p>
+			</section>
+			<section>
+				<h3>Mocking and spying</h3>
+				<p>
+					Mocking and spying are techniques used in testing to simulate the behavior of the objects that the class under test depends on.
+					In other words, we can control the internal behavior of the dependencies form the tests.
+				</p>
+				<p>
+					The "poor man's" version of mocking can be when we crate an alternative implementation of the class that is a dependency of the class under test.
+				</p>
+				<p>
+					In reality, we use mocking frameworks, such as Mockito, to create mock objects and spy objects.
+				</p>
+				<p>
+					<em>We will demonstrate this in practice.</em>
+				</p>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Controller</h2>
+			</section>
+			<section>
+				<h3>Controller</h3>
+				<hr />
+				<em>
+					The REST controller layer is responsible for handling the HTTP requests,
+					passing them to the service layer, retrieving the results from the service layer,
+					and returning HTTP responses.
+				</em>
+				<hr />
+				<p>
+					It is the responsibility of the controller to ...
+				</p>
+				<ol>
+					<li>
+						Defines methods and paths to resources
+						<ul>
+							<li>Path parameters</li>
+							<li>Query parameters</li>
+						</ul>
+					</li>
+					<li>
+						Receive request from client and passes it to services
+						<ul>
+							<li>Understand request parameters</li>
+							<li>Deserialize/serialize of request/response body</li>
+							<li>Optionally, do some level of request validation and error handling</li>
+						</ul>
+					</li>
+					<li>
+						Receive results from services and returns it to client
+						<ul>
+							<li>Serialize response body</li>
+							<li>Return response body and HTTP status</li>
+						</ul>
+					</li>
+				</ol>
+			</section>
+			<section>
+				<h3>REST Controller</h3>
+				<em>in detail</em>
+				<hr />
+				<p>
+					Annotation <code class="inline">@RestController</code> is used to define a class as a REST controller and
+					<code class="inline">@RequestMapping</code> is used to define the root path to the resource.
+				</p>
+				<p>
+					Any dependencies are injected into the controller using, constructor injection, setter injection, or field injection.
+				</p>
+				<p>
+					Here is an example with constructor injection, which is the recommended way.
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						@RestController
+						@RequestMapping("/api/users")
+						public UserController  {
+
+							private final UserService userService;
+
+							public UserController(UserService userService) {
+								this.userService = userService;
+							}
+
+							// ...
+						}
+					</code>
+				</pre>
+				<hr />
+				<p>
+					Additional annotations are available, see Spring Boot documentation if you want to learn more.
+				</p>
+			</section>
+			<section>
+				<h3>REST Controller</h3>
+				<em>in detail</em>
+				<hr />
+				<p>
+					Each method within the controller class is annotated with either
+					<code class="inline">@GetMapping</code>, <code class="inline">@PostMapping</code>, <code class="inline">@PutMapping</code>,
+					<code class="inline">@DeleteMapping</code>, or <code class="inline">@PatchMapping</code>, ith optional sub-path to the resource.
+					<br />
+					<br />
+					This defines the HTTP method that the class method handles, and the path to the resource.
+				</p>
+				<p>
+					This method defined GET method on resource <code>/api/users</code>
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						@GetMapping
+						public ResponseEntity&lt;User&gt; getUser(@PathVariable Long id) {
+							// ...
+						}
+					</code>
+				</pre>
+				<p>
+					This method defined PUT method on resource <code>/api/users/{id}</code>
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						@PutMapping("/{id}")
+						public ResponseEntity&lt;User&gt; getUser(@PathVariable("id") Long id) {
+							// ...
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>REST Controller</h3>
+				<em>in detail</em>
+				<hr />
+				<p>
+					Methods may declare path parameters or query parameters, and may return the response body and the HTTP status.
+					Path parameters are defined using <code class="inline">@PathVariable</code> annotation,
+					and query parameters are defined using <code class="inline">@RequestParam</code> annotation.
+				</p>
+				<p></p>
+				<p>
+					Responses may be returned as is, or using <code class="inline">ResponseEntity</code> class.
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						@GetMapping("/{id}")
+						public ResponseEntity&lt;User&gt; getUser(
+							@PathVariable("id") Long id
+						) {
+							// ...
+						}
+
+						@GetMapping()
+						public ResponseEntity&lt;List&lt;User&gt;&gt; getUsers(
+							@RequestParam("page") int page,
+							@RequestParam("size") int size
+						) {
+							// ...
+						}
+
+						@PostMapping()
+						public ResponseEntity&lt;User&gt; postUser(
+							@RequestBody NewUser user
+						) {
+							// ...
+						}
+
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Serialization / Deserialization</h3>
+				<hr />
+				<p>
+					Serialization is the process of converting an object into a stream of bytes to store the object or transmit it to memory, a database, or a file.
+					<br />
+					<br />
+					<em>
+						In other words, serialization is the process of converting an object into a format that can be stored or transmitted, in our case JSON.
+					</em>
+				</p>
+				<hr />
+				<p>
+					Deserialization is the process of converting a stream of bytes back into an object.
+					<br />
+					<br />
+					<em>
+						In our case, converting JSON to an object.
+					</em>
+				</p>
+				<hr />
+				<p>
+					Serialization and deserialization of the request and response bodies is handled by Spring Boot automatically,
+					using the Jackson library. We can configure the serialization and deserialization specifics using
+					<code class="inline">@Configuration</code>.
+				</p>
+			</section>
+			<section>
+				<h3>Testing Controllers</h3>
+				<div class="row">
+					<p style="font-size: 80%">
+						Testing controllers is relatively simple, because they are just classes that handle the HTTP
+						requests and return the HTTP responses. However, we need some tools to simulate the HTTP
+						requests and responses.
+					</p>
+					<div class="column" style="width: 70%">
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java" style="font-size: 80%">
+									@WebMvcTest(HelloController.class)
+									public class HelloControllerTest {
+
+										@MockBean
+										private HelloService helloService;
+
+										@Autowired
+										private MockMvc mockMvc;
+
+										private final String path = "/api/hello";
+										private final String name = "Monika";
+										private final String locale = "es";
+										private final String expected = "Hola Monika!";
+
+										@BeforeEach
+										void setUp() {
+											Mockito.when(helloService.sayHello(name, locale)).thenReturn(expected);
+										}
+
+										@Test
+										@DisplayName("GET /api/hello?name={name}&locale={locale} - should responds with 200")
+										void testHelloController() throws Exception {
+											mockMvc.perform(get(path + "?name=" + name + "&locale=" + locale))
+													.andDo(print())
+													.andExpect(status().isOk())
+													.andExpect(content().string(containsString(expected)));
+										}
+
+										@Test
+										@DisplayName("GET /api/hello - should responds with 400")
+										void testHelloControllerMissingParameters() throws Exception {
+											mockMvc.perform(get(path))
+													.andDo(print())
+													.andExpect(status().isBadRequest());
+										}
+
+									}
+							</code>
+						</pre>
+					</div>
+					<div class="column" style="font-size: 70%; width: 30%">
+						<ul>
+							<li>
+								Spring Boot provides the <code class="inline">MockMvc</code> class to simulate the HTTP requests and responses.
+							</li>
+							<li>
+								<code class="inline">@WebMvcTest</code> annotation with the controller class to be tested will establish a Spring context.
+							</li>
+							<li>
+								<code class="inline">@Autowired</code> annotation is used to inject the <code>MockMvc</code> bean into the test class.
+							</li>
+							<li>
+								Ideally, we want to test just the controller, but not the service and repository layers,
+								so we can use the <code class="inline">@MockBean</code> annotation to mock the service and repository beans.
+							</li>
+							<li>
+								We can mock the service layer using any mocking library, such as Mockito.
+								In this case we use <code class="inline">Mockito.when</code> to mock the service method.
+							</li>
+							<li>
+								We can also use <code class="inline">Mockito.verify</code> method to make sure service layer would have been called correctly.
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Service</h2>
+			</section>
+			<section>
+				<h3>Service</h3>
+				<em>
+					The service layer in an MVC application is the layer that contains the <strong>business logic</strong>.
+				</em>
+				<hr />
+				<p>
+					This layer is responsible for understanding the requests from the <strong>controller layer</strong>,
+					making appropriate calls to the <strong>repository layer</strong> or other services, processing the data,
+					and then and returning the result back to the controller layer (if applicable).
+				</p>
+				<p>
+					Services layer will usually ....
+				</p>
+				<ul>
+					<li>Receive request from controller</li>
+					<li>Do some level of validation and error handling on the request</li>
+					<li>Call one or more repositories or other services in order to fulfill business requirements</li>
+					<li>Return results back to the controller</li>
+				</ul>
+				<hr />
+				<p style="font-size: 80%">
+					<strong>Business logic</strong> = the code that implements the business rules and requirements.
+					In other words, the code that fulfills the customers needs and requirements should be placed in the service layer.
+				</p>
+			</section>
+			<section>
+				<h3>Service Layer</h3>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						@Service
+						public class HelloService {
+
+							private final HelloRepository helloRepository;
+
+							public HelloService(HelloRepository helloRepository) {
+								this.helloRepository = helloRepository;
+							}
+
+							public String sayHello(String name, String locale) {
+								String hello = helloRepository.selectHelloInLanguage(locale);
+								return String.format("%s %s!", hello, name);
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Testing Services</h3>
+				<p>
+					Testing the service layer is perhaps the easiest, because we only need to mock the repository layer.
+					There are multiple approaches you can take.
+				</p>
+				<div class="row" style="font-size: 80%">
+					<div class="column">
+						Either you can test the service layer using Spring Boot's dependency injection,
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								@SpringBootTest
+								public class HelloServiceTest {
+
+									@MockBean
+									private HelloRepository helloRepository;
+
+									@Autowired
+									private HelloService helloService;
+
+									@Test
+									@DisplayName("should return localized hello")
+									public void testHelloService() {
+										Mockito.when(helloRepository.selectHelloInLanguage("en"))
+											.thenReturn("Hello");
+
+										String result = helloService.sayHello("Monika", "en");
+										assertEquals("Hello Monika!", result);
+
+										Mockito.verify(helloRepository)
+											.selectHelloInLanguage("en");
+									}
+
+								}
+							</code>
+						</pre>
+						The advantage of this is you are testing the service can be injected correctly.
+						The disadvantage is that the test may be slower and more resource consuming.
+					</div>
+					<div class="column">
+						<br />
+						or you can just inject the dependency yourself.
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								public class HelloService2Test {
+
+									private final HelloRepository helloRepository =
+										Mockito.mock(HelloRepository.class);
+
+									private final HelloService helloService =
+										new HelloService(helloRepository);
+
+									@Test
+									@DisplayName("should return localized hello")
+									public void testHelloService() {
+										Mockito.when(helloRepository.selectHelloInLanguage("en"))
+											.thenReturn("Hello");
+
+										String result = helloService.sayHello("Monika", "en");
+										assertEquals("Hello Monika!", result);
+
+										Mockito.verify(helloRepository)
+											.selectHelloInLanguage("en");
+									}
+
+								}
+							</code>
+						</pre>
+						This test is going to be faster, but you are not testing the DI,
+						which is not a big deal if you also have integration tests.
+					</div>
+				</div>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Project Work</h2>
+			</section>
+		</section>
+	</div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+	// More info about initialization & config:
+	// - https://revealjs.com/initialization/
+	// - https://revealjs.com/config/
+	Reveal.initialize({
+		hash: true,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+	});
+</script>
+</body>
+</html>

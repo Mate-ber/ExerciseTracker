@@ -1,0 +1,1576 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/motyka.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/vs.css">
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<section data-background-color="#523996">
+			<i>Week 1 | Lesson 5</i>
+			<h1>Collections</h1>
+			<em>Wrapper Classes</em><br />
+			<em>Lists, Stacks, Sets, Maps, Queues, Utility Classes</em><br />
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Wrapper Classes</h2>
+			</section>
+			<section>
+				<h3>Wrapper Classes</h3>
+				<hr />
+				<p>
+					The purpose of Java wrapper classes is to convert Java primitive types to reference types (objects).
+					<br />
+					<br />
+					All wrapper classes support auto-boxing and auto-unboxing: automatic conversion of primitive types to the object of their corresponding wrapper classes and vice versa.
+				</p>
+				<hr />
+				<p>
+					<strong>Wrapper classes were introduced in Java for several reasons:</strong>
+					<br />
+				<ul style="font-size: 80%">
+					<li><strong>Object-Oriented Programming</strong> - primitives are not objects in Java</li>
+					<li><strong>Null handling</strong> - wrapper classes can hold null value, unlike primitive types</li>
+					<li><strong>Data structures</strong> - Java Collection Framework can only hold objects, not primitive types</li>
+					<li><strong>Convenience</strong> - wrapper classes come with a number of useful methods for parsing, converting, comparing values, etc.</li>
+					<li><strong>Immutability</strong> - objects these wrapper classes are immutable (meaning their state can’t be changed once created). <br />
+						<sub>This is a useful property, especially when dealing with multi-threaded environments as it eliminates synchronization for object's state manipulation.</sub>
+					</li>
+				</ul>
+				</p>
+			</section>
+			<section>
+				<h4>Wrapper Classes</h4>
+				<p>
+					Here is an exmaple primitive to wrapper class mapping.
+				</p>
+				<div class="row">
+					<div class="column" style="width: 70%">
+						<pre>
+							<code data-trim data-noescape data-line-numbers class="hljs java">
+								byte bytePrimitive = 127;
+								Byte byteObject = bytePrimitive; // auto-boxing
+
+								System.out.println(bytePrimitive);
+								System.out.println(byteObject);
+
+								Integer intObject = 2147483647;
+								int intPrimitive = intObject; // auto-unboxing
+
+								System.out.println(intObject);
+								System.out.println(intPrimitive);
+							</code>
+						</pre>
+					</div>
+					<div class="column" style="width: 30%; font-size: 90%; text-align: left;">
+						<br />
+						<code>byte = Byte</code><br />
+						<code>short = Short</code><br />
+						<code>int = Integer</code><br />
+						<code>long = Long</code><br />
+						<code>float = Float</code><br />
+						<code>double = Double</code><br />
+						<code>boolean = Boolean</code><br />
+						<code>char = Character</code>
+					</div>
+				</div>
+			</section>
+			<section>
+				<h4>Wrapper Classes</h4>
+				<hr />
+				<p>
+					Some of the claims about wrapper classes are not immediately pbvious from the code,
+					such that they are objects and immutable.
+					Let's prove it by an example ...
+				</p>
+				<hr />
+				<p>
+					<strong>Claim:</strong> Wrapper classes are objects.
+				</p>
+				<pre>WrapperClasses.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						Integer number = 42;
+
+						if (number instanceof Object) {
+							System.out.println("number is Object"); // will print this
+						} else {
+							System.out.println("number is primitive");
+						}
+					</code>
+				</pre>
+				<p>
+					<strong>Claim:</strong> Wrapper classes are immutable.
+				</p>
+				<pre>WrapperClasses.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						Long longNumber = 42L; // this is in fact object instantiation equivalent to calling `new Long(42)`;
+						System.out.println("Long address: " + System.identityHashCode(longNumber));
+						// memory address, something like 2120828836
+
+						longNumber = 24L; // and this is actually equivalent to `number = new Long(24)`
+						System.out.println("Long address: " + System.identityHashCode(longNumber));
+						// the memory address has changed, proving it is a new object
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h4>Member functions</h4>
+				<p>
+					Wrapper classes in Java have a number of useful methods that can be used for various operations such as parsing, comparing values, converting to different types, and more.
+				</p>
+				<pre>WrapperClasses.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+							Integer i = 10;
+							int x = Integer.parseInt("10");
+							System.out.println("x is int: " + (x == 10)); // prints true
+
+							String str = Double.toString(12.34);
+							System.out.println("str is String: " + (str.equals("12.34"))); // prints true
+
+							int max = Integer.max(5, 10);
+							int min = Integer.min(5, 10);
+							System.out.println("min: " + min); // prints 5
+							System.out.println("max: " + max); // prints 10
+
+							int compare = Integer.compare(5, 10);
+							System.out.println("compare: " + compare); // prints -1
+					</code>
+				</pre>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Java Collections</h2>
+				<em>Framework</em>
+			</section>
+			<section>
+				<h3>Java Collections</h3>
+				<em>Framework</em>
+				<hr />
+				<p>
+					The Java Collections Framework is a set of classes and interfaces that implement common
+					collection data structures and operations on them, such as searching, sorting, insertion, manipulation, and deletion.
+					<br />
+					<br />
+					It is part of the <code><strong>java.util</strong></code> package.
+				</p>
+				<hr />
+				<p>Java Collections Framework has these main components:</p>
+				<ul style="font-size: 80%">
+					<li>
+						<strong>Interfaces</strong><br />
+						Abstract data types representing collections, they allow collections to be manipulated independently of the details of their representation.
+						<br />
+						<em>Collection, List, Set, Queue, Deque, Map, SortedSet, and SortedMap ...</em>
+					</li>
+					<li>
+						<strong>Implementations</strong><br />
+						Concrete implementations of the collection interfaces.
+						<br />
+						<em>ArrayList, LinkedList, HashSet, TreeSet, PriorityQueue, HashMap, and TreeMap ...</em>
+					</li>
+					<li>
+						<strong>Algorithms</strong><br />
+						Methods that perform useful computations, such as searching and sorting, on objects that implement collection interfaces.
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Arrays vs. Collections</h3>
+				<hr />
+				<p>
+					Both arrays and Collections are used to store data.
+					There are however some notable differences that make them suitable for different use cases.
+				</p>
+				<hr />
+				<table style="font-size: 80%">
+					<thead>
+					<tr style="font-weight: bold">
+						<td></td>
+						<td>Arrays</td>
+						<td>Collections</td>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td style="font-weight: bold">Size</td>
+						<td>Arrays have fixed size. This may lead to memory wastage, but is also inconvenient to work with.</td>
+						<td>Collections can grow or shrink dynamically to accommodate the data.</td>
+					</tr>
+					<tr>
+						<td style="font-weight: bold">Type Safety</td>
+						<td>Arrays are type-safe</td>
+						<td>Collections are type-safe (through generic typing)</td>
+					</tr>
+					<tr>
+						<td style="font-weight: bold">Performance</td>
+						<td>Arrays can perform better than collections for some operations because of their simpler memory layout, lower overhead, and ability to employ direct indexing.</td>
+						<td>Collections have more overhead than arrays, and certain operations may be slower as a result. However, the built-in utilities in collections make them more convenient for complex data manipulation.</td>
+					</tr>
+					<tr>
+						<td style="font-weight: bold">Functionality</td>
+						<td>Arrays offer basic functionality such as adding elements, getting elements, and modifying existing elements.</td>
+						<td>
+							Collections provide a wide variety of functionalities.
+							They can be sorted, reversed, shuffled. They support operations like addition, inspection, modification, deletion, searching and other.</td>
+					</tr>
+					</tbody>
+				</table>
+			</section>
+			<section>
+				<h4>Arrays vs. Collections</h4>
+				<pre>ArraysVsCollections.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						String[] stringArray = new String[5]; // array of 5 Strings
+						stringArray[0] = "array element A";
+						stringArray[1] = "array element B";
+						stringArray[2] = "array element C";
+						stringArray[3] = "array element D";
+						stringArray[4] = "array element E";
+						// no more elements can be added, the array size is fixed
+
+						for (String s : stringArray) {
+							System.out.println(s);
+						}
+
+						List&lt;String&gt; stringList = new ArrayList&lt;String&gt;();
+						stringList.add("List element A");
+						stringList.add("List element B");
+						stringList.add("List element C");
+						stringList.add("List element D");
+						stringList.add("List element E");
+						stringList.add("List element F");
+						// we can as many elements as we want
+
+						for (String s : stringList) {
+							System.out.println(s);
+						}
+					</code>
+				</pre>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Collection</h2>
+				<em>Interface</em>
+			</section>
+			<section>
+				<h3>Collection</h3>
+				<em>Interface</em>
+				<hr />
+				<p>
+					A collection in general represents a group of objects known as its elements.
+				</p>
+				<hr />
+				<p>
+					The <strong>Collection</strong> interface itself implements <strong>Iterable</strong> interface,
+					is part of the Java Collections Framework,
+					and is implemented by several further interfaces, which we will discuss next:
+				</p>
+				<ul>
+					<li>List</li>
+					<li>Queue</li>
+					<li>Deque</li>
+					<li>Set</li>
+					<li>SortedSet</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Collection</h3>
+				<em>Collection Class Hierarchy</em>
+				<img src="./img/collection_interface.png">
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Lists</h2>
+				<em>Iterable -> Collection -> List</em>
+			</section>
+			<section>
+				<h3>List</h3>
+				<em>Interface</em>
+				<hr />
+				<em>
+					List in an <strong>ordered</strong> collection of elements, which <strong>can contain duplicates</strong>.
+				</em>
+				<hr />
+				<p>
+					<strong>List</strong> is an <strong>interface</strong> that extends the <strong>Collection interface</strong>, itself does not provide any concrete implementation.
+				</p>
+				<p>The actual implementations of List are provided by concrete classes:</p>
+				<ul>
+					<li>ArrayList</li>
+					<li>LinkedList</li>
+					<li>Vector</li>
+					<li>Stack</li>
+				</ul>
+			</section>
+			<section>
+				<h3>ArrayList</h3>
+				<em>
+					ArrayList is a resizable array implementation of the List interface.
+				</em>
+				<hr />
+				<p>
+					ArrayList internally uses regular array to store data.
+					When it reaches its capacity, new larger array is created and old one is removed.
+				</p>
+				<p>
+					It maintains indexes of its elements, which allows it to use less memory than LinkedList
+					and to perform faster access operations (like get and set), but slower insertion and deletion operations.
+				</p>
+				<p>
+					Time and complexity of access operations is O(1), while insertion and deletion operations are O(n).
+				</p>
+				<p>
+					It is not thread-safe, therefore it is not suitable for use in a concurrent multi-threaded environment without proper synchronization**.
+				</p>
+				<hr />
+				<sub>
+					** <em>Thread-safe</em> means that the object can be used by multiple threads at the same time without any problem.
+					We will discuss multithreading in lesson 7.
+				</sub>
+			</section>
+			<section>
+				<h4>ArrayList</h4>
+				<em>Creating ArrayList and adding elements to it.</em>
+				<pre>ArrayListExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						// Initializing an empty List
+						ArrayList&lt;String&gt; list = new ArrayList<>();
+
+						// Adding elements to the list
+						list.add("Bangkok");
+						list.add("Beijing");
+						list.add("Tokyo");
+
+						// Accessing elements from the list
+						System.out.println(list.get(0));
+						System.out.println(list.get(1));
+						System.out.println(list.get(2));
+					</code>
+				</pre>
+				<pre>ArrayListExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						// Initializing a List with elements
+						List&lt;String&gt; moreCities = Arrays.asList(
+								"London",
+								"Paris",
+								"Athens"
+						);
+
+						// Adding more elements to the list
+						list.addAll(moreCities);
+
+						for (String city : list) {
+							System.out.println(city);
+						}
+
+						// Accessing element from the list that does not exist
+						try {
+							System.out.println(list.get(11)); // Throws IndexOutOfBoundsException
+						} catch (IndexOutOfBoundsException e) { // Catching the exception
+							System.out.println("Exception caught: " + e.getMessage());
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h4>ArrayList</h4>
+				<em>Removing elements from ArrayList.</em>
+				<pre>ArrayListExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						ArrayList&lt;String&gt; list = new ArrayList<>(
+								Arrays.asList(
+										"Bangkok",
+										"Beijing",
+										"Tokyo",
+										"London",
+										"Paris",
+										"Athens",
+										"UNDEFINED",
+										null,
+										"Sydney"
+								)
+						);
+
+						list.remove("UNDEFINED");
+						list.remove(null);
+						list.remove(3);
+						list.removeAll(List.of("Bangkok", "Pattaya"));
+
+						for (String city : list) {
+							System.out.println(city);
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h4>ArrayList</h4>
+				<em>Getting ArrayList size, checking if it contains elements, etc.</em>
+				<pre>ArrayListExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						ArrayList&lt;String&gt; list = new ArrayList<>(
+								Arrays.asList(
+										"Bangkok",
+										"Beijing",
+										"Tokyo",
+										"London",
+										"Paris",
+										"Athens",
+										"Sydney"
+								)
+						);
+
+						// Size of list
+						int size = list.size();
+						System.out.println("Size of list: " + size);
+
+						// Checking if list is empty
+						boolean isEmpty = list.isEmpty();
+						System.out.println("Is list empty: " + isEmpty);
+
+						// Checking if list contains an element
+						boolean contains = list.contains("Tokyo");
+						System.out.println("Does list contain 'Tokyo': " + contains);
+
+						// Checking if list contains all elements
+						boolean containsAll = list.containsAll(List.of("Bangkok", "Tokyo"));
+						System.out.println("Does list contain 'Bangkok' and 'Tokyo': " + containsAll);
+
+						// Clearing the list
+						list.clear();
+						System.out.println("Is list empty: " + list.isEmpty());
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>LinkedList</h3>
+				<em>LinkedList implements the List and Deque interfaces.</em>
+				<hr />
+				<p>
+					LinkedList has similar functionality to ArrayList, but it is implemented as a doubly linked list.
+					It allows element addition and removal at both ends (either start or end of the list).
+				</p>
+				<hr />
+				<p>
+					LinkedList stores data in objects (containers) that hold the data and a reference to the next container in the list.
+				</p>
+				<p style="font-size: 80%">
+					When a new item is added, a new container is created and linked to one of the other containers in the list.
+					<br />
+					When element is removed, the container is removed and the previous container is linked to the next container.
+				</p>
+				<p>
+					Result of this is that LinkedList uses more memory than ArrayList, with slower access operations like get and set (O(n)),
+					but it is faster for adding and removing elements (O(1)).
+				</p>
+				<hr />
+				<p>
+					Like ArrayList, LinkedLList is not suitable for use in a concurrent multi-threaded environment unless properly synchronized.
+				</p>
+			</section>
+			<section>
+				<h4>LinkedList</h4>
+				<pre>LinkedListExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						LinkedList&lt;String&gt; list = new LinkedList<>(
+								Arrays.asList(
+										"Beijing",
+										"Tokyo",
+										"London",
+										"Paris",
+										"Athens"
+								)
+						);
+
+						list.addFirst("Bangkok");
+						list.addLast("Sydney");
+
+						System.out.println("First element: " + list.getFirst()); // prints "Bangkok"
+						System.out.println("Last element: " + list.getLast()); // prints "Sydney"
+
+						list.removeFirst();
+						list.removeLast();
+
+						System.out.println("First element: " + list.getFirst()); // prints "Beijing"
+						System.out.println("Last element: " + list.getLast()); // prints "Paris"
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Vector</h3>
+				<em>
+					Vector is a legacy** class that implements the List interface.
+				</em>
+				<hr>
+				<p>
+					Working with Vector is very similar to ArrayList, but Vector methods are synchronized for thread safety.<br />
+					<!--					It also contains some methods that are not part of the List interface.-->
+					<br />
+					<br />
+					It is safe to use in a multi-threaded environment, but it brings an overhead of synchronization which makes it slower than ArrayList and LinkedList.
+				</p>
+				<!--				<p>-->
+				<!--					Since Vector works more or less like other List implementations, we will skip an example for it.-->
+				<!--				</p>-->
+				<hr />
+				<sub>
+					** Legacy means that it is part of the original Java Collections Framework, but it is not actively maintained.
+				</sub>
+			</section>
+			<!--			<section>-->
+			<!--				<h4>Vector</h4>-->
+			<!--				<em>-->
+			<!--					Vector works just like List, but it is thread-safe.-->
+			<!--				</em>-->
+			<!--				<pre>-->
+			<!--					<code data-trim data-noescape data-line-numbers class="hljs java">-->
+
+			<!--					</code>-->
+			<!--				</pre>-->
+			<!--			</section>-->
+			<section>
+				<h3>Stack</h3>
+				<em>
+					Stack is also a legacy class that implements the List interface.
+				</em>
+				<hr />
+				<p>
+					Stack represents a last-in, first-out (LIFO) stack of objects.
+					LIFO means that the last element added to the stack is the first one to be removed.
+				</p>
+				<p>
+					Stack is s direct subclass of Vector, therefore it is also synchronized and thread-safe.
+				</p>
+				<p>
+					Newer implementations of LIFO in Java should favor using Deque interface and its implementations, rather than Stack.
+				</p>
+				<hr />
+			</section>
+			<section>
+				<h4>Stack</h4>
+				<pre>StackExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						Stack&lt;String&gt; stack = new Stack<>();
+
+						stack.push("Bangkok");
+						stack.push("Beijing");
+						stack.push("Tokyo");
+						stack.push("London");
+
+						System.out.println(stack.peek()); // prints London
+						System.out.println(stack.size()); // 4
+
+						String lastCity = stack.pop();
+						System.out.println(lastCity); // prints London
+						System.out.println(stack.size()); // 3
+
+						for (String city : stack) {
+							System.out.println(city); // prints Bangkok, Beijing, Tokyo
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Iterating Collections</h3>
+				<p>
+					Java 8 also introduced a new way to iterate collections using the forEach method.
+					<br />
+					You can still iterate collections using the for loop.
+				</p>
+				<pre>ListIterationExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						List&lt;String&gt; list = Data.CITY_LIST;
+
+						for (String item : list) {
+							System.out.println(item);
+						}
+
+						// using lambda expression
+						list.forEach(item -> {
+							System.out.println(item);
+						});
+
+						// shorthand for the above
+						list.forEach(System.out::println);
+					</code>
+				</pre>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Sets</h2>
+				<em>Iterable -> Collection -> Set, SortedSet</em>
+			</section>
+
+			<section>
+				<h3>Set</h3>
+				<em>Interface</em>
+				<hr />
+				<em>
+					Set in a collection of elements, which <strong>cannot contain duplicates</strong>.
+				</em>
+				<hr />
+				<p>
+					<strong>List</strong> is an <strong>interface</strong> that extends the <strong>Collection interface</strong>, itself does not provide any concrete implementation.
+				</p>
+				<p>
+					You can work with sets like you would with lists, the main difference is that sets do not allow duplicates.
+				</p>
+				<hr />
+				<p>The actual implementations of Set are provided by concrete classes:</p>
+				<ul>
+					<li>HastSet</li>
+					<li>LinkedHashSet</li>
+					<li>
+						SortedSet (interface)
+						<ul>
+							<li>TreeSet</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3>HashSet</h3>
+				<em>
+					HashSet is an implementation of the Set interface.
+				</em>
+				<hr />
+				<p>
+					HashSet is <strong>unordered</strong>
+				</p>
+				<p>
+					HashSet internally uses HashMap to store data. When it reaches its capacity, new larger HashMap
+					is created and old one is removed.
+				</p>
+				<p>
+					It does not maintain indexes of its elements, which makes it slower than ArrayList and LinkedList
+					for access operations like get and set (amortised O(1)).
+				</p>
+				<p>
+					HastSet is used when we want to store unique elements while we do not care about the order of elements.
+				</p>
+				<hr />
+				<p>
+					It is not thread-safe. It must be synchronized externally.
+				</p>
+			</section>
+			<section>
+				<h3>LinkedHashSet</h3>
+				<em>
+					HashSet is an implementation of the Set interface.
+				</em>
+				<hr />
+				<p>
+					LinkedHashSet implementation differs form HashSet in that it maintains a doubly-linked list running
+					through all of its entries. This means LinkedHashSet <strong>maintains the order</strong> of elements.
+				</p>
+				<p>
+					LinkedHashSet is used when we want to store unique elements while we care about the order of elements,
+					at some performance cost (amortised O(1)).
+				</p>
+				<hr />
+				<p>
+					It is not thread-safe. It must be synchronized externally.
+				</p>
+			</section>
+			<section>
+				<h4>HashSet, LinkedHashSet</h4>
+				<em>
+					HashSet or LinkedHashSet is very similar in usage to ArrayList and LinkedList,
+					except it does not allow duplicates.
+				</em>
+				<pre>LinkedHashSetExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						LinkedHashSet&lt;String&gt; set = new LinkedHashSet<>(
+								Arrays.asList(
+										"Bangkok",
+										"Beijing",
+										"Tokyo",
+										"London",
+										"Paris",
+										"Athens",
+										"Sydney"
+								)
+						);
+
+						// "Bangkok" already exists in the set, so it will not be added
+						set.add("Bangkok");
+
+						System.out.println(set.size());
+
+						for (String city : set) {
+							System.out.println(city);
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>TreeSet</h3>
+				<em>
+					<strong>TreeSet</strong> is an implementation of the <strong>SortedSet</strong> and <strong>NavigableSet</strong>.
+				</em>
+				<hr />
+				<p>
+					TreeSet is <strong>ordered</strong> and does not allow duplicates.
+				</p>
+				<p>
+					TreeSet internally uses TreeMap to store data (which we will look at later).
+				</p>
+				<p>
+					TreeSet <stron>maintains order</stron> of elements using their natural ordering,
+					or by a Comparator provided at set creation time, depending on which constructor is used.
+				</p>
+				<hr />
+				<p>
+					TreeSet is implemented as self-balancing tree, which makes it more costly to add and remove elements
+					with time complexity of O(log n), but access operations have time complexity of O(1).
+				</p>
+				<hr />
+				<p>
+					It is not thread-safe. It must be synchronized externally.
+				</p>
+			</section>
+			<section>
+				<h4>TreeSet</h4>
+				<pre>TreeSetExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						List&lt;String&gt; list = Arrays.asList(
+								"Bangkok",
+								"Los Angeles",
+								"Tokyo",
+								"London",
+								"New York City",
+								"Barcelona",
+								"Prague",
+								"Auckland"
+						);
+					</code>
+				</pre>
+				<pre>TreeSetExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						// natural order
+						TreeSet&lt;String&gt; set = new TreeSet<>(list);
+
+						// "Bangkok" already exists in the set, so it will not be added
+						set.add("Bangkok");
+
+						System.out.println(set.size()); // size has not changed, prints 7
+						Examples.print(set); // prints: Athens Bangkok Beijing London Paris Sydney Tokyo
+					</code>
+				</pre>
+				<pre>TreeSetExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						// empty TreeSet with custom order
+						TreeSet&lt;String&gt; customOrderSet = new TreeSet<>(
+								// custom order based on the length of the strings
+								Comparator.comparingInt(String::length)
+						);
+						// add all elements from the list
+						customOrderSet.addAll(list);
+
+						// prints: Tokyo London Bangkok Auckland Barcelona Los Angeles New York City
+						Examples.print(customOrderSet);
+					</code>
+				</pre>
+				<blockquote>
+					Why is Prague missing from the last printout?
+				</blockquote>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Queues</h2>
+				<em>Iterable -> Collections -> Queue, Deque</em>
+			</section>
+			<section>
+				<h3>Queue</h3>
+				<em>Interface</em>
+				<hr />
+				<em>
+					In general, a queue is a type of data structure that follows the first in, first out (FIFO) principle.
+					<!--					This means that the first element added to the queue will be the first one to be removed.-->
+					<br />
+					<br />
+					This is true in Java except for the PriorityQueue.
+					<br />
+					<br />
+					Queues can contain duplicates.
+				</em>
+				<hr />
+				<p>
+					Queue in Java is an interface that extends the Collection interface.
+					<br />
+					<br />
+					Notable Queue implementations are:
+				</p>
+				<ul>
+					<li>ArrayDeque</li>
+					<li>PriorityQueue</li>
+				</ul>
+			</section>
+			<section>
+				<h3>ArrayDeque</h3>
+				<em>
+					Implements Deque interface.
+				</em>
+				<hr />
+				<p>
+					ArrayDeque is a resizable array implementation of the Deque interface.
+					It allows element addition and removal at both ends (either start or end of the list).
+				</p>
+				<p>
+					You can work with like you would with ArrayList with some additional methods added by the Deque interface,
+					such as:
+				</p>
+				<ul>
+					<li><strong>poll</strong> - <em>returns the first element and removes it from the queue</em></li>
+					<li><strong>pollLast</strong> - <em>returns the last element and removes it from the queue</em></li>
+					<li><strong>peek</strong> - <em>returns the first element but does not remove it from the queue</em></li>
+					<li><strong>peekLast</strong> - <em>returns the last element but does not remove it from the queue</em></li>
+				</ul>
+			</section>
+			<section>
+				<h4>ArrayDeque</h4>
+				<pre>ArrayDequeExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						ArrayDeque&lt;String&gt; arrayDeque = new ArrayDeque<>(
+								Arrays.asList(
+										"Bangkok",
+										"Beijing",
+										"Tokyo",
+										"London",
+										"Paris",
+										"Athens",
+										"Sydney"
+								)
+						);
+
+						// custom convenience method to print the arrayDeque
+						Examples.print(arrayDeque);
+
+						arrayDeque.poll(); // returns Bangkok and removes it from the queue
+						Examples.print(arrayDeque);
+
+						arrayDeque.pollLast(); // returns Sydney and removes it from the queue
+						Examples.print(arrayDeque);
+
+						String peek = arrayDeque.peek(); // returns Beijing but does not remove it from the queue
+						System.out.println("Peek: " + peek);
+
+						String peekLast = arrayDeque.peekLast(); // returns Paris but does not remove it from the queue
+						System.out.println("Peek Last: " + peekLast);
+
+						// no element is removed from the queue by peek methods
+						Examples.print(arrayDeque);
+					</code>
+				</pre>
+				<sub>
+					Note that I am using <code>Examples.print</code> method, which is NOT part of Collections,
+					to print the contents of the queue to same some screen space.
+				</sub>
+			</section>
+			<section>
+				<h3>PriorityQueue</h3>
+				<em>
+					Implements Queue interface.
+				</em>
+				<hr />
+				<p>
+					PriorityQueue can be used when you want to process elements in a specific (priority) order.
+					It is still a FIFO type queue, but you can specify the order in which elements are processed.
+				</p>
+				<p>
+					Priority is provided by a Comparator, when provided, or by the natural ordering of elements,
+					when no comparator is provided.
+				</p>
+			</section>
+			<section>
+				<h4>PriorityQueue</h4>
+				<pre>PriorityQueueExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						List&lt;String&gt; cities = Arrays.asList(
+								"Bangkok",
+								"Los Angeles",
+								"Tokyo",
+								"London",
+								"New York City",
+								"Anchorage",
+								"Prague",
+								"Auckland"
+						);
+					</code>
+				</pre>
+
+				<pre>PriorityQueueExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						PriorityQueue&lt;String&gt; naturalOrder = new PriorityQueue<>(cities);
+
+						// convenience method to print the naturalOrder
+						Examples.print(naturalOrder);
+
+						naturalOrder.poll(); // returns Athens and removes it from the queue
+						Examples.print(naturalOrder);
+					</code>
+				</pre>
+
+				<pre>PriorityQueueExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						// empty PriorityQueue with custom order
+						PriorityQueue&lt;String&gt; customOrder = new PriorityQueue<>(
+								// custom order based on the length of the strings
+								Comparator.comparingInt(String::length)
+						);
+						// add all elements from the list
+						customOrder.addAll(cities);
+
+						// convenience method to print the naturalOrder
+						Examples.print(naturalOrder);
+
+						System.out.println("First element to poll: " + customOrder.peek());
+						naturalOrder.poll(); // returns Tokyo and removes it from the queue
+						Examples.print(naturalOrder);
+					</code>
+				</pre>
+			</section>
+		</section>
+
+		<section>
+			<section data-background-color="#523996">
+				<h2>Map</h2>
+				<em>Interface</em>
+			</section>
+			<section>
+				<h3>Map</h3>
+				<em>Interface</em>
+				<hr />
+				<p>
+					Map is used to store data in key-value pairs.
+				</p>
+				<hr />
+				<p>
+					<strong>Map</strong> is an <strong>interface</strong> in the Java Collections Framework.
+					<br />
+					<br />
+					It is implemented by following classes:
+				</p>
+				<ul>
+					<li>HashTable <em>(obsolete)</em></li>
+					<li>LinkedHashTable</li>
+					<li>HashMap</li>
+					<li>
+						SortedMap
+						<ul>
+							<li>TreeMap</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Map</h3>
+				<em>Map Class Hierarchy</em>
+				<br />
+				<img height="500" src="./img/map_interface.png">
+			</section>
+		</section>
+
+		<section>
+			<section data-background-color="#523996">
+				<h2>Map</h2>
+				<em>Map -> HashMap, LinkedHashMap</em><br />
+				<em>Map -> SortedMap -> TreeMap</em><br />
+			</section>
+			<section>
+				<h3>HashMap</h3>
+				<em>Maps in general are used to store data in key-value pairs.</em>
+				<hr />
+				<p>
+					HashMap is <strong>unordered</strong> and does <strong>not allow duplicate keys</strong>.
+				</p>
+				<p>
+					Like in case of lists and sets, this unordered collection allows for faster insert, search and delete operations.
+				</p>
+				<p>
+					It <strong>allows null</strong> key.
+				</p>
+				<p>
+					You can access data by index, like with lists and arrays, but the main use case is to access data by key.
+				</p>
+
+				<hr />
+				<p>
+					It's not thread-safe.
+				</p>
+			</section>
+			<section>
+				<h3>LinkedHashMap</h3>
+				<em>Used to store ordered data in key-value pairs.</em>
+				<hr />
+				<p>
+					LinkedHashMap provides the same functionality as HashMap, but it <strong>maintains the order</strong> of elements.
+				</p>
+				<p>
+					Maintaining order comes at some performance cost.
+				</p>
+				<hr />
+				<p>
+					It's not thread-safe.
+				</p>
+			</section>
+			<section>
+				<h3>TreeMap</h3>
+				<em>TreeMap is an implementation of the SortedMap interface.</em>
+				<hr />
+				<p>
+					TreeMap is <strong>ordered</strong> and does not allow duplicates.
+				</p>
+				<p>
+					TreeMap <strong>maintains order</strong> of elements using their natural ordering,
+					or by a Comparator provided at set creation time, depending on which constructor is used.
+				</p>
+				<p>
+					TreeMap is implemented as self-balancing tree, which makes it more costly to add and remove elements with time complexity of O(log n), but access operations have time complexity of O(1).
+				</p>
+				<hr />
+				<p>
+					Maps generally support the same operations as other collections, such as adding, removing, and checking for the presence of elements.
+				</p>
+				<hr />
+				<p>
+					It is not thread-safe. It must be synchronized externally.
+				</p>
+			</section>
+			<section>
+				<h4>HashMap, LinkedHashMap, TreeMap</h4>
+				<pre>TreeMapExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						TreeMap&lt;Integer, String&gt; map = new TreeMap<>(
+								Map.of(
+										7, "Bangkok",
+										-8, "Los Angeles",
+										1, "Prague"
+								)
+						);
+
+						// adding elements to the map
+						map.put(0, "London");
+						map.put(10 ,"Sydney");
+
+						// get operation will get its value based on key
+						String value = map.get(7);
+
+						// you can test contents of the map
+						boolean hasByKey = map.containsKey(7);
+						boolean hasByValue = map.containsValue("Bangkok");
+
+						map.remove(0);
+						map.remove(10, "Sydney"); // removes only if the value is 10
+					</code>
+				</pre>
+				<pre>TreeMapExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						for (Map.Entry&lt;Integer, String&gt; entry : map.entrySet()) {
+							System.out.println(entry.getKey() + " : " + entry.getValue());
+						}
+
+						// you can also iterate through the keys
+						for (Integer key : map.keySet()) {
+							System.out.println("Key: " + key + " Value: " + map.get(key));
+						}
+
+						// or you can iterate values
+						for (String val : map.values()) {
+							System.out.println("Value: " + val);
+						}
+					</code>
+				</pre>
+			</section>
+		</section>
+
+		<section>
+			<section data-background-color="#523996">
+				<h2>Collections class</h2>
+			</section>
+			<section>
+				<h3>Collections class</h3>
+				<p>
+					The Collections class consists of static methods that operate on collections.
+					It contains utility methods for working with collections, such as searching,
+					sorting, shuffling, reversing, etc.
+				</p>
+				<p>
+					If you want to know about all the methods the class provides,
+					visit the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html">documentation page</a>.
+				</p>
+				<!--				<p>-->
+				<!--					The collection class contains 3 fields as listed below which can be used to return immutable entities.-->
+				<!--					EMPTY_LIST to get an immutable empty List-->
+				<!--					EMPTY_SET to get an immutable empty Set-->
+				<!--					EMPTY_MAP to get an immutable empty Map-->
+				<!--				</p>-->
+			</section>
+			<section>
+				<h4>Example</h4>
+				<em>Creating immutable collections</em>
+				<hr />
+				<p>
+					Sometimes it is really useful to be able to create a collection with predefined elements.
+					The Collections class few convenience methods to do so.
+				</p>
+				<p>
+					<strong>The collections that it returns are immutable</strong> (you cannot add or remove elements from them).
+					<br />
+					The type of the collection is inferred from the context in which the method is called.
+				</p>
+				<hr />
+				<p>
+					This example shows some methods, but there are more. See documentation.
+				</p>
+				<pre>CollectionsExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						List&lt;Double&gt; immutableEmptyList = Collections.emptyList();
+						Set&lt;String&gt; immutableEmptySet = Collections.emptySet();
+						Map&lt;String, Integer&gt; emptyMap = Collections.emptyMap();
+					</code>
+				</pre>
+				<pre>CollectionsExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						List&lt;String&gt; singletonList = Collections.singletonList("Bangkok");
+						Set&lt;String&gt; singletonSet = Collections.singleton("Bangkok");
+						Map&lt;Integer, String&gt; singletonMap = Collections.singletonMap(7, "Bangkok");
+					</code>
+				</pre>
+				<hr />
+				<blockquote>
+					When do you think would it be useful to return an empty <strong>immutable</strong> collection?
+				</blockquote>
+			</section>
+
+			<section>
+				<h4>Example</h4>
+				<em>Inspecting elements</em>
+				<hr />
+				<p>
+					Common thing you may want to do as a developer is inspecting elements of collections.
+				</p>
+				<hr />
+				<pre>CollectionsExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						List&lt;String&gt; cities = new ArrayList<>(Data.CITY_LIST);
+
+						// returns min element by natural order = Anchorage
+						String min = Collections.min(cities);
+						System.out.println("Min: " + min);
+
+						// returns max element by natural order = Tokyo
+						String max = Collections.max(cities);
+						System.out.println("Max: " + max);
+
+						int frequency1 = Collections.frequency(cities, "Bangkok"); // returns 1
+						System.out.println("Frequency of Bangkok: " + frequency1);
+
+						int frequency2 = Collections.frequency(cities, "Prague"); // returns 0
+						System.out.println("Frequency of Prague: " + frequency2);
+
+						// comparing with custom comparator
+						String maxByLength = Collections.max(cities, (o1, o2) -> o1.length() - o2.length());
+						System.out.println("Max by length: " + maxByLength);
+
+						// this is really equivalent to Comparator.comparingInt
+						Collections.max(cities, Comparator.comparingInt(String::length));
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<h4>Example</h4>
+				<em>Adding and removing elements</em>
+				<hr />
+				<p>
+					Another useful method may be used for merging collections.
+				</p>
+				<hr />
+				<pre>CollectionsExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						// the list was defined as immutable
+						List&lt;String&gt; cities = new ArrayList<>(Data.CITY_LIST);
+
+						// this would throw UnsupportedOperationException, because the list is immutable
+						// cities.addAll(Arrays.asList("Amsterdam", "Barcelona", "Bratislava", "Rome"));
+
+						// create a new collection from cities and add new elements
+						Collections.addAll(cities, "Amsterdam", "Barcelona", "Bratislava", "Rome");
+						Examples.print(cities);
+
+						// replaces all matching elements, returns true if at least one was replaced
+						boolean replaced = Collections.replaceAll(cities, "Paris", "Prague");
+						System.out.println("Replaced at least one? " + replaced);
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<h4>Example</h4>
+				<em>Sorting</em>
+				<hr />
+				<p>
+					Here is another example demonstration operations on elements, such us reordering.
+				</p>
+				<hr />
+				<pre>CollectionsExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						List&lt;String&gt; cities = new ArrayList<>(Data.CITY_LIST);
+
+						// sort in natural order
+						Collections.sort(cities);
+						Examples.print(cities);
+
+						// sort in reverse order
+						Collections.sort(cities, Collections.reverseOrder());
+						Examples.print(cities);
+
+						// sort with custom comparator - sorted by 3rd letter
+						Collections.sort(cities, (o1, o2) -> o1.substring(2, 3).compareTo(o2.substring(2, 3)));
+						Examples.print(cities);
+
+						// shuffle the list
+						Collections.shuffle(cities);
+						Examples.print(cities);
+
+						// reverse the list
+						Collections.reverse(cities);
+						Examples.print(cities);
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h4>Example</h4>
+				<em>Synchronization for multi-threading</em>
+				<hr />
+				<p>
+					Collections are mostly not thread-safe and require external synchronization.
+				</p>
+				<p>
+					To do this, you can use <strong>Collections.synchronizedCollection</strong> method.
+				</p>
+				<hr />
+				<p>
+					We will talk more about multi-threading in lesson 7.
+				</p>
+			</section>
+
+			<section>
+				<h4>Example</h4>
+				<em>Synchronization for multi-threading</em>
+				<hr />
+				<p>
+					The following example is <strong>NOT</strong> thread safe.
+					There are two threads, one writes data to list and the other reads from it.
+					The reading thread will print "random" results every time it is run.
+				</p>
+				<pre>CollectionsExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						try {
+							System.out.println("Source list size: " + Data.CITY_LIST.size());
+
+							// not thread safe
+							List&lt;String&gt; list = new ArrayList<>();
+
+							Thread writingThread = new Thread(() -> {
+								for (String element : Data.CITY_LIST) {
+									list.add(element);
+								}
+							});
+
+							Thread readingThread = new Thread(() -> {
+								// this will print "random result every time it is run
+								System.out.println("Synchronized list size: " + list.size());
+							});
+
+							writingThread.start();
+							readingThread.start();
+
+							writingThread.join();
+							readingThread.join();
+
+						} catch (InterruptedException e) {
+							throw new RuntimeException(e);
+						}
+					</code>
+				</pre>
+			</section>
+
+			<section>
+				<h4>Example</h4>
+				<em>Synchronization for multi-threading</em>
+				<hr />
+				<p>
+					Using the <code>Collections.synchronizedList</code> with conjunction with <code>synchronized</code> block
+					makes sure that the write and read operations are performed in a way that ensures the integrity of the data.
+				</p>
+				<pre>CollectionsExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+					try {
+						System.out.println("Source list size: " + Data.CITY_LIST.size());
+
+						// thread safe
+						List&lt;String&gt; synchronizedList = Collections.synchronizedList(new ArrayList<>());
+
+						Thread writingThread = new Thread(() -> {
+							synchronized (synchronizedList) {
+								for (String element : Data.CITY_LIST) {
+									synchronizedList.add(element);
+								}
+							}
+						});
+
+						Thread readingThread = new Thread(() -> {
+							synchronized (synchronizedList) {
+								System.out.println("Synchronized list size: " + synchronizedList.size());
+							}
+						});
+
+						writingThread.start();
+						readingThread.start();
+
+						writingThread.join();
+						readingThread.join();
+
+					} catch (InterruptedException e) {
+						throw new RuntimeException(e);
+					}
+					</code>
+				</pre>
+			</section>
+		</section>
+
+		<section>
+			<section data-background-color="#523996">
+				<h2>Comparators</h2>
+			</section>
+			<section>
+				<h3>Comparators</h3>
+				<p>
+					Comparator is a functional interface that represents a comparison function,
+					which is used to compare elements of a collection.
+				</p>
+				<hr />
+				<p>
+					There is a number of static methods in the Comparator interface that can be used to create comparators.
+					Or you can create your own custom comparator.
+				</p>
+				<p>
+					See <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">documentation</a> for full list of comparator methods.
+				</p>
+				<pre>ComparatorsExample.java
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						List<String> cities = new ArrayList<>(Data.CITY_LIST);
+
+						Comparator<String> naturalOrder = Comparator.naturalOrder();
+
+						Comparator<String> reverseOrder = Comparator.reverseOrder();
+
+						Comparator<String> byStringLength = Comparator.comparingInt(String::length);
+
+						// custom comparator by occurrence of letter 'a'
+						Comparator<String> byOccurrenceOfLetterA = Comparator.comparingLong((str) ->
+							str.chars().filter(ch -> ch == 'a').count()
+						);
+
+						// passing comparator to sort method as an argument
+						cities.sort(byOccurrenceOfLetterA);
+						Examples.print(cities);
+					</code>
+				</pre>
+			</section>
+		</section>
+
+		<section>
+			<section data-background-color="#523996">
+				<h2>Stream API</h2>
+			</section>
+			<section>
+				<h3>Stream API</h3>
+				<p>
+					Java 8 introduced <strong>functional interfaces</strong> and <strong>Stream API</strong>
+					that allow us to use functional programming style for working with collections.
+				</p>
+				<p>
+					In Java, s <strong>Stream</strong> is a sequence of elements from a source that supports aggregate operations,
+					such as filtering, sorting, mapping, reducing, and more.
+				</p>
+				<ul style="font-size: 80%">
+					<li>
+						Stream is not a data structure, they don't store data.
+						Instead, streams are a pipeline through a pipeline of computational operations through which elements are processed.
+					</li>
+					<li>
+						Streams are functional by design. An operation on a stream produces a result, but does not modify its source.
+					</li>
+					<li>
+						Stream are lazy, meaning that many stream operations they do not process the data until it is needed.
+					</li>
+					<li>
+						Streams allow seamlessly chaining multiple operations in functional style.
+					</li>
+					<li>
+						Computations on streams can be executed in parallel.
+					</li>
+				</ul>
+				<p>
+					<sub>
+						We will discuss functional and functional programming in more detail in lesson 8.
+					</sub>
+				</p>
+			</section>
+			<section>
+				<h3>Stream API</h3>
+				<em>Filtering</em>
+				<p>
+					Filtering a collection is one of the most common operations you might want to perform.
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						List<String> citiesStartingWith = data
+							.stream() // creates Stream
+							.filter(item -> item.startsWith("A")) // filters and returns Stream
+							.toList(); // converts Stream to List
+
+						Examples.print(citiesStartingWith);
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Stream API</h3>
+				<em>Sorting</em>
+				<p>
+					You can use Stream API to sort collection using predefined comparators or create your own comparators.
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						List&lt;String&gt; sortedCities = data
+							.stream() // creates Stream
+							.sorted(Comparator.reverseOrder()) // compares using the comparator
+							.toList(); // converts Stream to List
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Stream API</h3>
+				<em>Mapping / Reducing</em>
+				<p>
+					Map and reduce is used for transforming collections.
+				</p>
+				<p>
+					Reducing allows us to collect data.
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						List&lt;String&gt; mappedCities = data
+							.stream() // creates Stream
+							.map(item -> {
+								// converts to upper case and removes all vowels
+								return item.toUpperCase().replaceAll("[AEIOUY]", "");
+							}) // compares using the comparator
+							.toList(); // converts Stream to List
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Stream API</h3>
+				<em>Collecting</em>
+				<p>
+					You can collect your collection into another collection.
+					For example, you can group items in collection by some characteristics.
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						Map&lt;String, List&lt;String&gt;&gt; groupedCities = data
+                			.stream() // creates Stream
+                			.collect(Collectors.groupingBy(s -> String.valueOf(s.charAt(0))));
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Stream API</h3>
+				<em>Other operations</em>
+				<p>
+					There are many more operations you can do using Stream API.
+					Try to explore them using documentations.
+				</p>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						var allMatch = data.stream().allMatch(item -> item.length() == 5);
+
+						var anyMatch = data.stream().anyMatch(item -> item.length() == 5);
+
+						var stream = data.stream().peek(System.out::println);
+
+						var stream3 = data.stream().limit(3);
+					</code>
+				</pre>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Summary</h2>
+			</section>
+			<section>
+				<h3>When to use which?</h3>
+				<em>
+					Each of the collection types has its own advantages and disadvantages.
+					Some will consume more memory, some will have performance overhead, some will be more convenient to use.
+				</em>
+				<hr />
+				<p>
+					When choosing the right collection type for your use case, consider the following:
+				</p>
+				<ul>
+					<li>How large will the dataset be?</li>
+					<li>Does the order of elements matter?</li>
+					<li>Should it allow duplicate values?</li>
+					<li>Should it allow storing null values?</li>
+					<li>How often will you be adding, removing, or modifying elements?</li>
+					<li>How often will you be accessing elements?</li>
+					<li>Do you need to sort or search the elements?</li>
+					<li>Will it be used in a multi-threaded environment?</li>
+				</ul>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>Practice</h2>
+			</section>
+		</section>
+	</div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+	// More info about initialization & config:
+	// - https://revealjs.com/initialization/
+	// - https://revealjs.com/config/
+	Reveal.initialize({
+		hash: true,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+	});
+</script>
+</body>
+</html>

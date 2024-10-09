@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/motyka.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/vs.css">
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<section data-background-color="#523996">
+			<i>Week 2 | Lesson 10</i>
+			<h1>Application Programming Interface</h1>
+			<em>REST API</em><br />
+			<em>Reflection</em>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>What is API</h2>
+			</section>
+			<section>
+				<h3>What is API</h3>
+				<em>API stands for <strong>Application Programming Interface</strong>.</em>
+				<hr />
+				<p>
+					It is a set of rules and protocols that allow different software applications to communicate with each other.
+				</p>
+				<p>
+					In contrast to user interface, API is meant for program to program or computer to computer communication.
+				</p>
+				<hr />
+				<p>
+					There are many forms of APIs, such as web APIs, library APIs, and operating system APIs.
+					Some APIs are specific to a particular programming language, some are specific to a particular application.
+				</p>
+			</section>
+			<section>
+				<h3>Design of API</h3>
+				<p>
+					When you think about designing an interface, you first need to think about the problem you are trying to solve with it.
+					Consider how the API will be used, and design it in a way that is convenient for the users of the API.
+				</p>
+				<hr />
+				<p>
+					This is why in this course, we will start by designing and interface (API) and only then we will implement the service and data model behind it.
+				</p>
+				<p>
+					If we did it the other way around, we would be tempted to design the service and data model in a way that is convenient for us, the developers, and not in a way that is convenient for the users of the API.
+				</p>
+			</section>
+		</section>
+		<section>
+			<section data-background-color="#523996">
+				<h2>What is REST</h2>
+			</section>
+			<section>
+				<h3>What is REST</h3>
+				<em>REST stands for <string>Representational State Transfer</string>.</em>
+				<hr />
+				<p>
+					It is an architectural style for designing networked applications.
+					Systems that follow REST principles are often called RESTful systems.
+					Characteristics of RESTful systems include <strong>statelessness</strong>,
+					<strong>client-server architecture</strong>, and a <strong>uniform interface</strong>.
+				</p>
+				<hr />
+				<ul style="font-size: 80%">
+					<li>
+						<strong>Statelessness</strong><br />
+						Each request from a client to a server must contain all of the information
+						necessary process the request, without relying on any server state being held between requests.
+					</li>
+					<li>
+						<strong>Client-server architecture</strong><br />
+						The client and server are separate and independent of each other, only communicating by well-defined requests and responses.
+						This allows each to be developed and scaled independently.
+						<br />
+						<br />
+						In real applications, client is usually responsible for the user interactions and the server is responsible for the data storage and processing.
+					</li>
+					<li>
+						<strong>Uniform interface</strong><br />
+						The API should be designed in a way that is consistent, predictable,
+						handles errors gracefully, is platform-agnostic, and is easy to understand and use.
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3>REST API</h3>
+				<em>Principles of REST API</em>
+				<hr />
+				<p>
+					Communication through REST API is done using standard HTTP methods,
+					such as <strong>GET</strong>, <strong>POST</strong>, <strong>PUT</strong>, and <strong>DELETE</strong>.
+				</p>
+				<hr />
+				<p>
+					REST communication is <strong>request-response</strong> protocol,
+					which means that the client sends a request to the server, and the server sends a response back to the client.
+				</p>
+				<p>
+					Each request is sent to a unique URI (Uniform Resource Identifier),
+					which represents a <strong>resource</strong> on the server.
+				</p>
+				<p>
+					The server processes the request and sends back a response, which may include data, status,
+					and other information, usually in JSON or XML format.
+				</p>
+			</section>
+			<section>
+				<h3>Request</h3>
+				<ul style="font-size: 90%">
+					<li>
+						<strong>HTTP Method</strong><br />
+						<em>Defines the type of action to be performed on the resource.</em>
+						<br />
+						<code style="font-size: 80%; color: steelblue">
+							GET /accounts
+						</code>
+					</li>
+					<li>
+						<strong>URI</strong><br />
+						<em>
+							Identifies a unique <strong>resource</strong> on the server.
+							It is usually composed of <strong>path</strong> and optionally <strong>query parameters</strong>.
+						</em>
+						<br />
+						<code style="font-size: 80%; color: steelblue">
+							GET /accounts/123/users?limit=10&search=joe
+						</code>
+					</li>
+					<li>
+						<strong>Headers</strong><br />
+						<em>
+							These can be used to send additional data with the request, such as the content type or an authorization token.
+						</em>
+						<br />
+						<code style="font-size: 80%; color: steelblue">Content-Type: application/json</code><br />
+						<code style="font-size: 80%; color: steelblue">Authorization: Bearer some-token-value</code>
+					</li>
+					<li>
+						<strong>Body</strong><br />
+						<em>
+							Body is usually sent only with <strong>POST</strong>, <strong>PUT</strong> and <strong>PATCH</strong> requests.
+							In most cases, this will be formatted as JSON or XML.
+						</em>
+						<br />
+						<code style="font-size: 80%; color: steelblue">
+							{ "username": "testUser", "password" : "123456" }
+						</code>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Response</h3>
+				<ul style="font-size: 90%">
+					<li>
+						<strong>HTTP Status Code</strong><br />
+						A numerical code that indicates the success or failure of the request.
+						There is a convention for what status code should be used in what situation.
+					</li>
+					<li>
+						<strong>Headers</strong><br />
+						As in the request, headers in the response can be used to pass additional information. This might include the content type of the response, or a Set-Cookie header to store information in the client's browser.
+					</li>
+					<li>
+						<strong>Body</strong><br />
+						This contains the actual data being returned from the server.
+						This will usually be in JSON or XML format, or could also be plain text.
+						<br />
+						<code style="font-size: 80%; color: steelblue">
+							{ "id": 1, "username": "testUser", "email": "testUser@example.com" }
+						</code>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Methods</h3>
+				<p>
+					In theory, you can use all methods of HTTP protocol to communicate with REST API.
+					In practice, you will mostly use ...
+				</p>
+				<ul>
+					<li>
+						<strong>GET</strong><br />
+						<em>Used to retrieve data from the server. It should never change the state of the server.</em>
+					</li>
+					<li>
+						<strong>POST</strong><br />
+						<em>Used to send data to the server to create a new resource.</em>
+					</li>
+					<li>
+						<strong>PUT</strong><br />
+						<em>
+							Used to send data to the server to update an existing resource.
+							Changes should be idempotent, meaning that if you send the same request multiple times,
+							the result should be the same as if you sent it once.
+							In other words, PUT should be used to update the resource as a whole.
+						</em>
+					</li>
+					<li>
+						<strong>DELETE</strong><br />
+						<em>Used to delete a resource from the server.</em>
+					</li>
+					<li>
+						<strong>PATCH</strong><br />
+						<em>Used to partially update a resource on the server.</em>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Paths</h3>
+				<p>
+					URI is the path to the resource on the server.
+					You can use <strong>path parameters</strong> to specify a particular resource,
+					and <strong>query parameters</strong> to, for example, filter or paginate the results.
+				</p>
+				<p>
+					Here is the conventional structure of the resource:
+					<br />
+					<br />
+					<code style="color: steelblue">/resources/</code>
+					<code style="color: magenta">{path-parameter}</code>
+					<code style="color: steelblue">/sub-resource</code>
+					<code style="color: red">?</code>
+					<code style="color: green">param1=value</code>
+					<code style="color: orange">&</code>
+					<code style="color: green">param2=value</code>
+				</p>
+				<ul>
+					<li><span style="color: steelblue">resource path</span></li>
+					<li><span style="color: magenta">path parameter</span></li>
+					<li><span style="color: red">path and query parameter separator</span> </li>
+					<li><span style="color: orange">query parameter separator</span></li>
+					<li><span style="color: green">query parameters </span> and their values</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Headers</h3>
+				<p>
+					Headers are used to pass additional information with the request or response.
+					<br />
+					<br />
+					Headers are usually conventional, meaning that there are some standard headers that are used in most APIs.
+					REST services can also define their own custom headers.
+				</p>
+				<p>Some of the most common conventional headers are:</p>
+				<ul style="font-size: 90%">
+					<li>
+						<strong>Content-Type</strong><br />
+						Used to specify the format of the body of the request.<br />
+						<code style="font-size: 80%; color: steelblue">Content-Type: application/json</code>
+					</li>
+					<li>
+						<strong>Accept</strong><br />
+						Used to specify the format of the response.<br />
+						<code style="font-size: 80%; color: steelblue">Accept: application/json</code>
+					</li>
+					<li>
+						<strong>Authorization</strong><br />
+						Used to pass an authorization token with the request.<br />
+						<code style="font-size: 80%; color: steelblue">Authorization: Bearer some-token-value</code>
+					</li>
+					<li>
+						<strong>X-Api-Key</strong><br />
+						Used to pass an API key with the request.<br />
+						<code style="font-size: 80%; color: steelblue">X-Api-Key: some-api-key-value</code>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Body</h3>
+				<p>
+					Body is usually sent only with <strong>POST</strong>, <strong>PUT</strong> and <strong>PATCH</strong> requests.
+				</p>
+				<p>
+					Body is almost exclusively custom, meaning that it is up to the service to define what the body of the request or response should look like.
+				</p>
+				<p>
+					Most common formats for the body are JSON and XML.
+				</p>
+			</section>
+			<section>
+				<h3>Status Codes</h3>
+				<p>
+					HTTPS status codes are used to indicate the success or failure of the request. Generally ...
+				</p>
+				<div class="row">
+					<div class="column">
+						<ul style="font-size: 80%">
+							<li>
+								<strong>1xx</strong><br />
+								<em>
+									Informational responses. The request was received, continuing process.
+								</em>
+								<ul>
+									<li>100 - Continue</li>
+									<li>101 - Switching Protocols</li>
+								</ul>
+							</li>
+							<li>
+								<strong>2xx</strong><br />
+								<em>
+									Success. The action was successfully received, understood, and accepted.
+								</em>
+								<ul>
+									<li>200 - OK</li>
+									<li>201 - Created</li>
+								</ul>
+							</li>
+							<li>
+								<strong>3xx</strong><br />
+								<em>
+									Redirection. Further action must be taken in order to complete the request.
+								</em>
+								<ul>
+									<li>301 - Moved Permanently</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<div class="column">
+						<ul style="font-size: 80%">
+							<li>
+								<strong>4xx</strong><br />
+								<em>
+									Client Error. The request contains bad syntax or cannot be fulfilled.
+								</em>
+								<ul>
+									<li>400 - Bad Request</li>
+									<li>401 - Unauthorized</li>
+									<li>403 - Forbidden</li>
+									<li>404 - Not Found</li>
+								</ul>
+							</li>
+							<li>
+								<strong>5xx</strong><br />
+								<em>
+									Server Error. The server failed to fulfill an apparently valid request.
+								</em>
+								<ul>
+									<li>500 - Internal Server Error</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			<section>
+				<h3>REST API design practices</h3>
+				<em>
+					When designing a REST API, it is important to follow some good practices.
+				</em>
+				<hr />
+				<p>
+					<strong>Naming conventions</strong>
+				</p>
+				<ul>
+					<li>Paths should be nouns and should be plural.</li>
+					<li>Paths should represent hierarchical relationships.</li>
+					<li>Paths should preferably be lowercase, and not case-sensitive.</li>
+					<li>Query parameters should be named in consistent matter, either using
+						<ul>
+							<li>camelCase</li>
+							<li>snake_case</li>
+							<li>kebab-case</li>
+							<li> ... but not combining them</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3>REST API design practices</h3>
+				<em>
+					When designing a REST API, it is important to follow some good practices.
+				</em>
+				<hr />
+				<p>
+					<strong>Versioning</strong>
+				</p>
+				<ul>
+					<li>Once you publish a (public) API, you may not be able to control who uses it.</li>
+					<li>API versioning is thus important to ensure that any changes are backward compatible.</li>
+				</ul>
+			</section>
+			<section>
+				<h3>REST API design practices</h3>
+				<em>
+					When designing a REST API, it is important to follow some good practices.
+				</em>
+				<hr />
+				<p>
+					<strong>Request and response format</strong>
+				</p>
+				<ul>
+					<li>API should return data in a consistent format, such as JSON or XML.</li>
+					<li>Naming conventions should be consistent, for example, use <code>camelCase</code> or <code>snake_case</code> consistently throughout the API.</li>
+					<li>For services written in Java, it is more nature to use <code>camelCase</code>, because it matches class field naming conventions.</li>
+				</ul>
+			</section>
+			<section>
+				<h3>REST API design practices</h3>
+				<em>
+					When designing a REST API, it is important to follow some good practices.
+				</em>
+				<hr />
+				<p>
+					<strong>Response codes and error handling</strong>
+				</p>
+				<ul>
+					<li>Each method should respond with appropriate status code.</li>
+					<li>For example:
+						<ul>
+							<li>successful requests that do not modify resource should be either 200 or 204</li>
+							<li>successful requests that create a new resource should be 201</li>
+							<li>requests that fail due to user error should return 4xx</li>
+							<li>requests that fail due to user input error should fail with 400</li>
+							<li>requests tha fail due to authentication error should fail with 401</li>
+							<li>requests that fail due to authorization error should fail with 403</li>
+							<li>requests that fail due to resource not found should fail with 404</li>
+							<li>requests that fail due to server error should return 5xx</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3>REST API design practices</h3>
+				<em>
+					When designing a REST API, it is important to follow some good practices.
+				</em>
+				<hr />
+				<p>
+					<strong>Overall consistency</strong>
+				</p>
+				<ul>
+					<li>API should be consistent in its design and behavior.</li>
+					<li>For example, if POST method for one resource returns the newly created object, then POST method for another resource should also return the newly created object.</li>
+				</ul>
+			</section>
+		</section>
+
+		<section>
+			<section data-background-color="#523996">
+				<h2>Reflection</h2>
+			</section>
+			<section>
+				<h3>Reflection</h3>
+				<em>Reflection allows us to inspect and modify runtime behavior of classes, interfaces, fields, and methods at runtime, without knowing their name at compile time.</em>
+				<hr />
+				<p>
+					We can use reflection to instantiate new objects, invoke methods, and get or set field values.
+				</p>
+				<p>
+					Reflection is part of the Java API, and is defined in the <code>java.lang.reflect</code> package.
+				</p>
+				<hr />
+				<p>
+					Reflection is used by many frameworks, such as Spring, Jackson, Hibernate, and JUnit.
+				</p>
+			</section>
+			<section>
+				<h3>Reflection</h3>
+				<em>
+					What can we do with reflection?
+				</em>
+				<hr />
+				<ul>
+					<li>Inspect classes</li>
+					<li>Inspect constructors</li>
+					<li>Inspect methods</li>
+					<li>Inspect fields</li>
+					<li>Instantiate objects dynamically</li>
+					<li>Invoke methods</li>
+					<li>Change field value</li>
+				</ul>
+			</section>
+			<section>
+				<h4>Reflection</h4>
+				<em>
+					Inspection of classes, constructors, methods and fields.
+				</em>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class ReflectionInspectionExample {
+
+							private static final UniversityCourse object = new UniversityCourse(
+									"Java",
+									LocalDate.of(2024, 3, 19),
+									15
+							);
+
+							public static void main(String[] args) {
+
+								var cls = object.getClass();
+
+								// Inspect class
+								System.out.println("Class: ");
+								System.out.println(" Name = " + cls.getName());
+								System.out.println(" Simple Name = " + cls.getSimpleName());
+								System.out.println(" Package = " + cls.getPackage());
+								System.out.println(" Superclass = " + cls.getSuperclass());
+								System.out.println(" Interfaces = " + Arrays.toString(cls.getInterfaces()));
+
+								// Inspect constructors
+								var constructors = cls.getConstructors();
+								System.out.println("Constructors: ");
+								for (var constructor : constructors) {
+									System.out.println(" Parameters = " + Arrays.toString(constructor.getParameterTypes()));
+								}
+
+								// Inspect methods
+								Method[] methods = cls.getMethods();
+								System.out.println("Methods: ");
+								for (Method method : methods) {
+									System.out.println(" Method = " + method.getName());
+									System.out.println(" Parameters = " + Arrays.toString(method.getParameterTypes()));
+								}
+
+								// Inspect fields
+								Field[] fields = object.getClass().getDeclaredFields();
+								System.out.println("Fields: ");
+								for (Field field : fields) {
+									System.out.println(" Field = " + field.getName());
+									System.out.println(" Type = " + field.getAnnotatedType());
+								}
+							}
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h4>Reflection</h4>
+				<em>
+					Instantiation, dynamic invocation of methods and fields, and changing field values.
+				</em>
+				<pre>
+					<code data-trim data-noescape data-line-numbers class="hljs java">
+						public class ReflectionExecutionExample {
+
+							public static void main(String[] args) {
+
+								try {
+									// get class by fully qualified name
+									var cls = Class.forName("lesson02.UniversityCourse");
+
+									// create instance
+									var instance = cls
+											.getDeclaredConstructor(String.class, LocalDate.class, int.class)
+											.newInstance("Java", LocalDate.of(2024, 3, 19), 15);
+
+									// get method
+									var getterMethod = cls.getDeclaredMethod("getSubject");
+
+									// invoke the method on existing instance
+									var getterValue = getterMethod.invoke(instance);
+
+									// should print Java
+									System.out.println(getterValue);
+
+									var setterMethod = cls.getDeclaredMethod("setSubject", String.class);
+									var noReturnValue = setterMethod.invoke(instance, "Python");
+
+									// should print null
+									System.out.println(noReturnValue);
+
+									// should print Python
+									System.out.println(getterMethod.invoke(instance));
+
+								} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException |
+										ClassNotFoundException | InstantiationException e) {
+									// reflection may throw multiple types of exceptions
+									System.out.println("Error: " + e.getMessage());
+								}
+							}
+
+						}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h4>Reflection use cases</h4>
+				<em>
+					Reflection is often used by frameworks and libraries to provide functionality that would be difficult to achieve otherwise,
+					such as runtime configuration, serialization, and deserialization, type analysis, object instantiation, and method invocation.
+				</em>
+				<ul>
+					<li>
+						<strong>Frameworks</strong><br />
+						Java frameworks use reflection to analyze and manipulate the classes, interfaces, constructors, methods, and fields that they work with.
+						For instance, Spring Framework uses it to create classes via IoC, Hibernate uses reflection API to fetch data and populate your entity objects.
+					</li>
+					<li>
+						<strong>Testing</strong><br />
+						Tools like JUnit and Mockito use the reflection to observe class, field, and method size, and also to call methods while doing the testing.
+					</li>
+					<li>
+						<strong>Serialization & Deserialization</strong><br />
+						Reflection is often used to convert (text) data, such as JSON, to an equivalent Java objects and vice versa.
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h4>Reflection pitfalls</h4>
+				<em>
+					Despite its usefulness, it is not recommended to use reflection where not necessary because of the following reasons.
+				</em>
+				<ul style="font-size: 80%">
+					<li>
+						<strong>Performance Overhead</strong><br />
+						Reflection operations have performance overhead because it involves type inference, and often disables certain JVM optimizations.
+						Reflective code is therefore generally slower than the normal code, and should be avoided in parst of the code that are called frequently,
+						or in performance-critical applications.
+					</li>
+					<li>
+						<strong>Exposure of Internals</strong><br />
+						Reflections allows access to restricted parts of the code, such as private methods and fields.
+						By doing this, it breaks the encapsulation and exposes the internals of the class in a way it was not designed to be used.
+					</li>
+					<li>
+						<strong>Lack of Compile-Time Safety</strong><br />
+						Reflection bypasses the compile-time type checks, and therefore may result in runtime exceptions.
+					</li>
+					<li>
+						<strong>Decreased Maintainability of Code</strong><br />
+						Reflection makes the code less readable and maintainable, by making it more difficult to understand.
+						It also makes the code more error-prone, because the compiler cannot detect errors in the reflective code.
+						<br />
+						Additionally, it makes a lot of development tools, such as IDEs, less useful, because they cannot analyze the reflective code.
+					</li>
+					<li>
+						<strong>Security Concerns</strong><br />
+						Reflection can access and manipulate private fields and methods, which can be a security concern.
+					</li>
+				</ul>
+			</section>
+		</section>
+
+		<section>
+			<section data-background-color="#523996">
+				<h2>Practice</h2>
+			</section>
+		</section>
+
+	</div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+	// More info about initialization & config:
+	// - https://revealjs.com/initialization/
+	// - https://revealjs.com/config/
+	Reveal.initialize({
+		hash: true,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+	});
+</script>
+</body>
+</html>
