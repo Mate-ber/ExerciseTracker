@@ -9,6 +9,7 @@ The application has the following features:
 2. Tracking user exercise
 3. Managing users
 
+This project utilizes postman to do the job of the frontend and the project itself is just backend of the exercise tracker.
 
 ## Important the only things that is implemented by me is managing activity types and tracking user exercise in folder m3-spring-application.
 
