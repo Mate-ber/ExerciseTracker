@@ -7,7 +7,7 @@ The application has the following features:
 
 1. Managing activity types
 2. Tracking user exercise
-3. Managing users _(already implemented)_
+3. Managing users
 
 
 ## Implementation
