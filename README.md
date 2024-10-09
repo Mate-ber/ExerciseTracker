@@ -11,7 +11,7 @@ The application has the following features:
 
 
 ## Implementation
-## ** Important the only things that ws implemented by me is managing activity types and tracking user exercise in folder m3-spring-application.**
+## Important the only things that ws implemented by me is managing activity types and tracking user exercise in folder m3-spring-application.
 
 ---
 ## Activities
