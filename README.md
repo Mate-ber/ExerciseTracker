@@ -1,8 +1,8 @@
-# Exercise Tracker Application
+# WorkoutTracker Application
 
 ## Overview
 
-The exercise tracker application allows users to track their activities. 
+The workout tracker application allows users to track their activities. 
 The application has the following features:
 
 1. Managing activity types
@@ -11,7 +11,7 @@ The application has the following features:
 
 This project utilizes postman to do the job of the frontend and the project itself is just backend of the exercise tracker.
 
-## Important the only things that is implemented by me is managing activity types and tracking user exercise in folder m3-spring-application.
+## Important the only things that are implemented by me is managing activity types and tracking user exercise in folder m3-spring-application.
 
 ---
 ## Activities
