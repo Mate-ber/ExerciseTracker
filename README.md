@@ -1,191 +1,85 @@
-# Syllabus
+# Exercise Tracker Application
 
-In this course, we will start from Java language fundamentals and work our way up from basic console based program to real world application with REST API.
-Throughout the course, we will not only focus on how to write programmes, but also on how to test them.
+## Overview
 
-In week 1, you will learn Java programming language fundamentals.
-In week 2, you will learn how to create working Java programs and will be introduced to Spring Boot application framework.
-In week 3, you will apply skills acquired in previous weeks to build an actual application.
+The exercise tracker application allows users to track their activities. 
+The application has the following features:
 
-## Week 1
-Introduction to development in Java
-
-### Lesson 1
-- Brief history of Java (10 min)
-- Where Java fits in on the developer landscape (10 min)
-- Java basics (1h)
-  - Basic Java language syntax
-  - Java Data Types
-  - Operators
-  - Conditionals 
-  - Arrays
-  - Scope
-- Introduction to IDE (30 min)
-- Running you first Java program (console) (10 min)
-- Practice:
-  - learn to work with strings
-    - string concatenation
-    - string builder
-    - split
-  - learn to work with arrays
-    - loops
-
-### Lesson 2
- - Java basics (continued) (1h)
-   - Objects and classes, fields, constructors
-   - Functions / methods, lambda
-   - Scope
-   - Access modifiers
-   - Errors and exception handling
-   - Records and immutability
- - How to read documentation (JavaDoc)
- - Practice:
-   - prepare for next lessons
-
-### Lesson 3
-- Dependency management (Gradle, Maven) (30 min)
-- Testing your code (1h)
-    - Testing fundamentals
-    - Unit testing
-    - Integration testing
-    - Test Driven Development
-    - Code coverage
-    - Code quality
-- Annotations
-- JUnit (1h)
-- Refactoring your code for testability
-- Logging
-- Debugging
-- Practice
-- Homework: Unit test homework from previous lesson?
-
-### Lesson 4
-- Java basics (continued) (1h)
-  - Programming language and communication of intent
-  - Polymorphism
-  - Inheritance
-- Practice
-- Homework
-
-### Lesson 5
-- Java Wrapper Classes
-- Lists, Stacks, Sets, Maps, Queues, Utility classes
-- Functional Interfaces and Stream API
-- Practice
-- Homework
-
-## Week 2
-Application design
-
-Probably some repetition in the beginning
-
-### Lesson 6
-- Homework review
-- Java libraries
-  - java.time
-- Reading from command line
-- Java Optionals
-- Practice: 
-  - implement simple console application
-- Homework: working with Java Time
-
-### Lesson 7
-- Homework review
-- Java libraries
-  - java.io.File, java.nio.Path, InputStream and OutputStream
-- Practice
-- Homework: read and write to file
-
-### Lesson 8
-- Homework review
-- JRE, JDK and JVM (30 min)
-  - Java language, Java compiler and Java bytecode (quick overview)
-- Multithreading
-- Memory management
-- Practice
-  - maybe some bad code optimization (memory, thread safety)
+1. Managing activity types
+2. Tracking user exercise
+3. Managing users _(already implemented)_
 
 
-### Lesson 9
-- The SOLID principle (20 min)
-- Object-Oriented Design patterns (20 min)
-- Inversion of Control (IoC) (20 min)
-- Generics (30 min)
+## Implementation
+## ** Important the only things that ws implemented by me is managing activity types and tracking user exercise in folder m3-spring-application.**
 
-- I/mutability, state and functional programming principles, Functional Interfaces?
-- Lambda expressions
-- Optionals?
+---
+## Activities
+The application allows users to manage activity types. An activity type is a type of activity that a user can perform.
 
-- Practice
-  - Generics
-  - IoC
-- Homework
+There are two kinds of activity types:
+- Application-defined activity types (SYSTEM)
+- User-defined activity types (USER)
 
+### Activities: functional requirements
 
-### Lesson 10
-- Application Programming Interface (API) (30 min)
-  - What is an API
-  - Types of APIs
-  - How to use an API
-- Design of a REST API (60 min)
-  - Resources, methods, parameters
-  - Request and response (Serialization)
-  - Best practices
-- Reflection (60 min)
-  - What is reflection
-  - How to use reflection
-  - When to use reflection
-- Practice
-  - Reflection
-- Homework
-  - Try working with an API (PostMan or similar)
+The application performs the following operations on activity types:
+1. Get a list of all activity types **in context of a user**.
+2. Get a list of activity types **in context of a user**, filtered by:
+   - type (SYSTEM or USER)
+3. Get an activity type by its unique identifier, **in context of a user**.
+4. Add a new USER activity type.
+5. Update an existing USER activity type.
+6. Delete an existing USER activity type, if it is not used in any user activity.
 
-## Week 3
-Project: Working on an application
+The following rules apply to activity types:
+1. **SYSTEM** activity types are predefined in the application and cannot be modified or deleted by any user.
+2. **USER** types are created by users and can be modified or deleted by the user who created them, under following conditions:
+    - User-defined activity types cannot be deleted if they are used in any user activity.
+    - User-defined activity types can be modified if they are used in any user activity, and the changes will be reflected in the user activities that have already been recorded.
+    - User-defined activity types can be deleted if they are not used in any user activity, and only by the user who created them.
 
-Introduction to the project
-Split the project into smaller increments
+### Activities: model
+
+The activity should have the following properties:
+- **id** - Unique identifier of the activity.
+- **userId** - The unique identifier of the user who added the activity (0 for SYSTEM)
+- **type** - The type of the activity (SYSTEM or USER).
+- **name** - The name of the activity.
+- **kcalPerMinute** - The number of kilocalories burned per minute during the activity.
 
 
-### Lesson 11
-- Java Application Development and Frameworks (10 min)
-- Introduction to Spring Boot framework (30 min)
-  - Running first Spring Boot application (10 min)
-  - MVC and IoC in Spring Boot (20 min)
-- Basic MVC model overview (30 min)
-  - Controller
-  - Service
-  - Repository
-- Testing (20 min)
-- Practice
-  - Starting the Spring Boot application
-- Homework
-  - Design REST API for the project
+## Exercises
 
-### Lesson 12
-- Homework review
-- Project work:
-  - Implementing REST API
-  - Implementing the service layer
-  - Testing (60 min)
+The application allows users to track their activities. 
 
-### Lesson 13
-- Project work:
-  - Connecting to repositories (60 min)
-- Application configuration
-- Securing your API
-- Introduction to the Project
+### Exercise: functional requirements
 
-## Lesson 14
-- Microservice architecture (Spring Cloud)
-- Asynchronous execution
-- Event based architecture
-- Reactive Streams (Spring WebFlux)
-- Consuming to 3rd party APIs
-- Caching
-- Working on the project
+The following rules apply to exercises:
+1. User can add a exercise in their context (session).
+   - exercise **must** be associated with a user (by id) and an activity (by id).
+   - exercise **must** have a start time and duration.
+2. Exercises may be updated or deleted only by the user who added it.
+3. User can list all their exercises.
+4. User can list their exercises filtered by 
+   - date
+   - activity
+   - duration.
+5. User can get an exercises by its unique identifier.
+6. User cannot see other user exercises.
 
-## Lesson 15
-- Project presentation and review
-- Running your application in production environment
-- Monitoring
+### Exercise: model
+
+**NewExercise** - Represents a new exercise record. It has the following properties:
+- **userId** - The unique identifier of the user who added the activity.
+- **activityId** - The unique identifier of the activity.
+- **startTime** - The date and time the activity was started.
+- **duration** - The duration of the activity in seconds.
+
+**Exercise** - Represents existing user activity. It has the following properties:
+  - **id** - The unique identifier of the user activity.
+  - **userId** - The unique identifier of the user who added the activity.
+  - **activityId** - The unique identifier of the activity.
+  - **startTime** - The date and time the activity was started.
+  - **duration** - The duration of the activity in seconds.
+  - **kcalBurned** - The number of kilocalories burned during the activity. This is a calculated number based on duration and activity type.
